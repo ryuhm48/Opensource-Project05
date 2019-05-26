@@ -56,7 +56,7 @@ public class WriteAction implements CommandAction {
 			
       		pstmt = conn.prepareStatement(      
       				
-    				"insert into board values(NULL,?,?,?,?,now(),0)");
+    				"insert into board values(NULL,?,?,?,?,now(),0,0)");
     				pstmt.setString(1, id);
     				pstmt.setString(2, subject);
     				pstmt.setString(3, content);

@@ -28,6 +28,23 @@ public class board {
 	//검색내용
 	public String condition;
 	
+	public String study;
+	
+	//스터디 이름
+	public String name;
+	
+	//스터디 소개
+	public String inform;
+
+	//스터디 관리자
+	public String administor;
+
+	//스터디 구성원
+	public String member;
+
+	//스터디  번호
+	public String boardnum1;
+
 	public String getOpt() {
 		return opt;
 	}
@@ -82,5 +99,42 @@ public class board {
 	public void setScore(String score) {
 		this.score = score;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getInform() {
+		return inform;
+	}
+	public void setInform(String inform) {
+		this.inform = inform;
+	}
+	public String getAdministor() {
+		return administor;
+	}
+	public void setAdministor(String administor) {
+		this.administor = administor;
+	}
+	public String getMember() {
+		return member;
+	}
+	public void setMember(String member) {
+		this.member = member;
+	}
+	public String getBoardnum1() {
+		return boardnum1;
+	}
+	public void setBoardnum1(String boardnum1) {
+		this.boardnum1 = boardnum1;
+	}
+	public String getStudy() {
+		return study;
+	}
+	public void setStudy(String study) {
+		this.study = study;
+	}
+	
 	
 }

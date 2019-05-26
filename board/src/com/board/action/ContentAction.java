@@ -61,7 +61,7 @@ public class ContentAction implements CommandAction {
     		
     		//��ȸ�� ����Ʈ�� �޾ƿ�
     		ArrayList<board> articleList = new ArrayList<board>();
-    		
+    		ArrayList<board> studyList = new ArrayList<board>();
     		while(rs.next()){
     			board article = new board();
     			article.setNum(rs.getInt("num"));    			

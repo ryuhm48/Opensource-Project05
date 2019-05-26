@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import com.board.beans.board;
 import com.board.controller.CommandAction;
  
-public class ListAction implements CommandAction {
+public class StudyListAction implements CommandAction {
 	
     public String requestPro(HttpServletRequest request,
  
@@ -64,7 +64,7 @@ public class ListAction implements CommandAction {
     		stmt = conn.createStatement();    		
     		rs = stmt.executeQuery(query);    		
     		
-    		ArrayList<board> articleList1 = new ArrayList<board>();    		
+    		ArrayList<board> articleList = new ArrayList<board>();    		
     		
     		while(rs.next()){
     			board article = new board();
@@ -74,9 +74,9 @@ public class ListAction implements CommandAction {
     			article.setId(rs.getString("id"));
     			article.setBoarddate(rs.getString("boarddate"));
     			article.setScore(rs.getString("score"));
-    			articleList1.add(article);
+    			articleList.add(article);
     		}
-    		request.setAttribute("articleList1",articleList1);
+    		request.setAttribute("articleList",articleList);
     		
     	} catch(SQLException ex){
     		
@@ -87,7 +87,7 @@ public class ListAction implements CommandAction {
     		if(conn != null) try{conn.close();} catch(SQLException ex) {}
     	}
  
-        return "list.jsp";
+        return "personalstudylist.jsp";
  
     }
  
