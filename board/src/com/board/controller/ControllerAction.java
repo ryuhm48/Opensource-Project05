@@ -30,22 +30,21 @@ public class ControllerAction extends HttpServlet {
         {
  
             String command = actionEnumHome.nextElement();
-            ;
- 
             String className = rbHome.getString(command);
  
             try {
  
-                Class<?> commandClass = Class.forName(className);
+                Class commandClass = Class.forName(className);
  
                 Object commandInstance = commandClass.newInstance(); 
                 
                 commandMap.put(command, commandInstance); 
  
             } catch (ClassNotFoundException e) {
- 
+                System.out.println("not found : ");
+                
                 continue; // error
- 
+               
                 // throw new ServletException(e);
  
             } catch (InstantiationException e) {

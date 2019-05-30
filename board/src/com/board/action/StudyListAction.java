@@ -49,35 +49,34 @@ public class StudyListAction implements CommandAction {
     		String dbUser = "root";
     		String dbPass = "";
     		String query = null; 
-    		
     		if(opt == null){    			
-    			query = "select * from board order by num";
+    			query = "select * from studydb order by num";
     		}else if(opt.equals("0")){    			
-    			query = "select * from board where subject like '%"+condition+"%' order by num";        		
+    			query = "select * from studydb where name like '%"+condition+"%' order by num";        		
     		}else if(opt.equals("1")){    			
-    			query = "select * from board where content like '%"+condition+"%' order by num";        		
+    			query = "select * from studydb where administor like '%"+condition+"%' order by num";        		
     		}else if(opt.equals("2")){    			
-    			query = "select * from board where id like '%"+condition+"%' order by num";        		
+    			query = "select * from studydb where inform like '%"+condition+"%' order by num";        		
     		}
     		conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
     		
     		stmt = conn.createStatement();    		
     		rs = stmt.executeQuery(query);    		
+	
     		
-    		ArrayList<board> articleList = new ArrayList<board>();    		
+    		ArrayList<board> studyList = new ArrayList<board>();    		
     		
     		while(rs.next()){
-    			board article = new board();
-    			article.setNum(rs.getInt("num"));
-    			article.setSubject(rs.getString("subject"));
-    			article.setContent(rs.getString("content"));
-    			article.setId(rs.getString("id"));
-    			article.setBoarddate(rs.getString("boarddate"));
-    			article.setScore(rs.getString("score"));
-    			articleList.add(article);
+    			board study = new board();
+    			study.setNum(rs.getInt("num"));
+    			study.setName(rs.getString("name"));
+    			study.setInform(rs.getString("inform"));
+    			study.setAdministor(rs.getString("administor"));
+    			study.setMember(rs.getString("member"));
+    			studyList.add(study);
     		}
-    		request.setAttribute("articleList",articleList);
-    		
+    		request.setAttribute("studyList",studyList);
+    		 
     	} catch(SQLException ex){
     		
     	} finally{
@@ -86,7 +85,7 @@ public class StudyListAction implements CommandAction {
     		
     		if(conn != null) try{conn.close();} catch(SQLException ex) {}
     	}
- 
+
         return "personalstudylist.jsp";
  
     }

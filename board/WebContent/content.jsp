@@ -17,7 +17,7 @@
 	</div>
 	<c:forEach items="${articleList}" var="article">
 	<table class="table table-striped table-bordered table-hover" style="text-align:center">
-		<caption style="text-align:center">게시판 내용</caption>
+		<caption style="text-align:center">게시판</caption>
 		<tr>
 			<td>제목</td>
 			<td style="text-align:left">${article.subject}</td>			
@@ -45,9 +45,9 @@
 		
 	</table>
 	<div style="text-align:right">
-		<input type=button class="btn btn-danger" value="삭제하기" OnClick="window.location='delete.do?num=${article.num}'">
-		<input type=button class="btn btn-warning" value="수정하기" OnClick="window.location='modifyform.do?num=${article.num}'">			
-		<input type=button class="btn btn-secondary" value="돌아가기" OnClick="window.location='list.do'">
+		<input type=button class="btn btn-danger" value="삭제하기" OnClick="window.location='delete.do?num=${article.num}&kind=${1}'">
+		<input type=button class="btn btn-warning" value="수정하기" OnClick="window.location='modifyform.do?num=${article.num}&kind=${1}'">			
+		<input type=button class="btn btn-secondary" value="돌아가기" OnClick="window.location='list.do?kind=${1}'">
 	</div>
 	</c:forEach>		
 </body>

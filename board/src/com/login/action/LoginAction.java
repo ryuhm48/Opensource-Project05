@@ -61,6 +61,7 @@ public class LoginAction implements CommandAction{
 			//占쏙옙占쏙옙占� 占싯삼옙占쏙옙 占실몌옙 占쏙옙占실울옙 id 占쌩곤옙
 			if(isLogin){				
 				session.setAttribute("id", id);
+				session.setAttribute("kind", 1);
 			//占쏙옙占� 占싯삼옙占쏙옙 占싫듸옙 占쏙옙 占쏙옙占쏙옙 占싯억옙 호占쏙옙
 			}else if(!isLogin && id != null){
 				return "loginerror2.jsp";

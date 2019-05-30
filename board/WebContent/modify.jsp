@@ -6,7 +6,7 @@
 			<body>
 				  <script language=javascript>
 				  	self.window.alert("글이 수정되었습니다.");
-				  	location.href="content.do";
+				  	location.href="content.do?kind=${1}";
 				  </script>
 </body>
 </html>

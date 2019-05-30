@@ -19,28 +19,26 @@
 		<caption style="text-align:center">게시판</caption>
 		<tr>
 			<th style="text-align:center">번호</th>
-			<th style="text-align:center">제목</th>
-			<th style="text-align:center">작성자</th>
-			<th style="text-align:center">작성일자</th>
-			<th style="text-align:center">조회수</th>
+			<th style="text-align:center">스터디명</th>
+			<th style="text-align:center">관리자</th>
+			<th style="text-align:center">소개</th>
 		</tr>
 			
-			<c:forEach items="${articleList}" var="article">
+			<c:forEach items="${studyList}" var="study">
 		<tr>
-			<th style="text-align:center">${article.num}</th>
-			<th style="text-align:left"><a href="content.do?num=${article.num}">
-			${article.subject}</a></th>
-			<th style="text-align:center">${article.id}</th>
-			<th style="text-align:center">${article.boarddate}</th>
-			<th style="text-align:center">${article.score}</th>			
+			<th style="text-align:center">${study.num}</th>
+			<th style="text-align:left"><a href="content.do?num=${study.num}&kind=${2 }">
+			${study.name}</a></th>
+			<th style="text-align:center">${study.administor}</th>
+			<th style="text-align:center">${study.inform}</th>			
 		</tr>
 		</c:forEach>
 		</table>				
 			<div style="text-align:right">
-				<input type=button class="btn btn-success" value="작성하기" OnClick="window.location='writeform.jsp'">
+				<input type=button class="btn btn-success" value="작성하기" OnClick="window.location='personalstudywriteform.jsp'">
 			</div>
 			<div style="text-align:right">
-				<input type=button class="btn btn-success" value="스터디 이동" OnClick="window.location='personalstudylist.jsp'">
+				<input type=button class="btn btn-success" value="리스트 이동" OnClick="window.location='list.do?num=$kind=${1 }'">
 			</div>
 			<div id="searchForm" style="text-align:center">
 				<form>

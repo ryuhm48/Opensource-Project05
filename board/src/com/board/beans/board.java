@@ -42,8 +42,8 @@ public class board {
 	//스터디 구성원
 	public String member;
 
-	//스터디  번호
-	public String boardnum1;
+	//게시판 번호
+	public int boardnum1;
 
 	public String getOpt() {
 		return opt;
@@ -123,10 +123,10 @@ public class board {
 	public void setMember(String member) {
 		this.member = member;
 	}
-	public String getBoardnum1() {
+	public int getBoardnum1() {
 		return boardnum1;
 	}
-	public void setBoardnum1(String boardnum1) {
+	public void setBoardnum1(int boardnum1) {
 		this.boardnum1 = boardnum1;
 	}
 	public String getStudy() {

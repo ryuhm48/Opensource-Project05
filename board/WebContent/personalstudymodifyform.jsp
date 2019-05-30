@@ -28,43 +28,36 @@
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<title>BOARD 테이블 레코드 삽입</title>
+	<title>BOARD2 테이블 레코드 삽입</title>
 </head>
 <body>
 	<div style="text-align:right">
 		사용자ID : ${id} <input type=button class="btn btn-info" value="로그아웃" OnClick="window.location='logout.do'">
 	</div>
 	<form action ="/board/modify.do" method="get">
-		<c:forEach items="${articleList}" var="article">
-			<input type="hidden" name="num" value="${article.num}">
-			<input type="hidden" name="kind" value="${kind}">
+		<c:forEach items="${studyList}" var="study">
+			<input type="hidden" name="num" value="${study.num}">
+			<input type="hidden" name="kind" value=2>
+		
 			<table class="table table-striped table-bordered table-hover" style="text-align:center">
-				<caption style="text-align:center">게시판 수정</caption>		
+				<caption style="text-align:center">스터디 수정</caption>		
 				<tr>
 					<td>제목</td>
-					<td style="text-align:left"><input type="text" name="subject" value="${article.subject}"></td>
+					<td style="text-align:left"><input type="text" name="name" value="${study.name}"></td>
 				</tr>
 				<tr>	
 					<td>작성자</td>
-					<td style="text-align:left">${article.id}</td>
-				</tr>
-				<tr>	
-					<td>작성일자</td>
-					<td style="text-align:left">${article.boarddate}</td>
-				</tr>
-				<tr>	
-					<td>email</td>
-					<td style="text-align:left">${article.email}</td>
-				</tr>
+					<td style="text-align:left">${study.administor}</td>
+				</tr><!-- 멤버구현해야댐 -->
 				<tr>	
 					<td>내용</td>
-					<td style="text-align:left"><textarea name="content" rows="10" placeholder="내용을 입력하세요" form="inform">${article.content}</textarea></td>
+					<td style="text-align:left"><textarea name="inform" rows="10" placeholder="내용을 입력하세요" form="inform">${study.inform}</textarea></td>
 				</tr>	
 				<tr>
 					<td></td>
 					<td style="text-align:right">
 						<input type=submit class="btn btn-warning" value="수정" Onclick="javascript:writeCheck();">
-						<input type=button class="btn btn-secondary" value="취소" OnClick="window.location='content.do?num=${article.num}&kind=${1}'">
+						<input type=button class="btn btn-secondary" value="취소" OnClick="window.location='content.do?num=${study.num}&kind=${2}'">
 					</td>
 				</tr>	
 			</table>

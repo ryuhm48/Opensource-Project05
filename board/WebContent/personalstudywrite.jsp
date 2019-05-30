@@ -8,8 +8,8 @@
 </head>
 <body>
 <script>
-   self.window.alert("입력한 글을 저장하였습니다.");
-   location.href="list.do?kind=${1}"; 
+   self.window.alert("스터디를 생성하였습니다.");
+   location.href="list.do?kind=${2}";
 
 </script>
 </body>
