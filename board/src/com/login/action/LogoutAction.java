@@ -16,7 +16,7 @@ public class LogoutAction implements CommandAction{
 		HttpSession session = request.getSession();
 		//���� ����
 		session.invalidate();
-		return "login.jsp";
+		return "index.jsp";
 	}
 
 }

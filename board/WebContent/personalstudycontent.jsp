@@ -33,7 +33,11 @@
 		</tr>
 		<tr>
 			<td>멤버</td>
-			<td style="text-align:left">${study.member}</td>						
+			<td style="text-align:left">$(function(){
+				String token[]= study.member.split(",");
+				for(int i=0;i < token.length;i++)
+					token[i];
+			});</td>						
 		</tr>
 		
 		

@@ -67,7 +67,11 @@ public class ContentAction implements CommandAction {
 
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(query);
-			
+				query3= "select * MID(SUBSTRING(member,LOCATE(',',member)+1)"
+						+ ",LOCATE(',',member),LOCATE(',',SUBSTRING(member,LOCATE(',',member)+1))-1) "
+						+ "from userdb where num = " + num;
+				stmt = conn.createStatement();
+				stmt.executeQuery(query3);
 			}
 			// ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½
 			ArrayList<board> articleList = new ArrayList<board>();
@@ -94,7 +98,13 @@ public class ContentAction implements CommandAction {
 					study.setInform(rs.getString("inform"));
 					study.setAdministor(rs.getString("administor"));
 					//, °³¼ö Ã£±â
-				
+					int LineCnt=0;
+					int fromIndex=-1;
+					while((fromIndex = query3.indexOf(",",fromIndex+1))>=0) {
+						LineCnt++;
+					}
+					for(int i=0;i<LineCnt;i++) {//È¸¿ø ÀúÀå
+					}
 					study.setMember("member");
 					studyList.add(study);
 					request.setAttribute("studyList", studyList);

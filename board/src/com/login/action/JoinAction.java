@@ -28,6 +28,7 @@ public class JoinAction implements CommandAction {
     	String password = request.getParameter("password");
     	String name = request.getParameter("name");
     	String email = request.getParameter("email");
+    	String gender = request.getParameter("gender");
     	String study = null;
     	//mysql 데이터베이스에 접속하는 클래스 드라이버 선언
     	//Class.forName("com.mysql.jdbc.Driver");
@@ -51,12 +52,14 @@ public class JoinAction implements CommandAction {
 			//데이터베이스에 연결
 			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
     		
-			String sql = "insert into userdb values(?,?,?,?)";
+			String sql = "insert into userdb values(?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, request.getParameter("id"));
 			pstmt.setString(2, request.getParameter("password"));
 			pstmt.setString(3, request.getParameter("name"));
 			pstmt.setString(4, request.getParameter("email"));
+			pstmt.setString(5, request.getParameter("gender"));
+			
 			//각 ?에 해당하는 변수들을 넣어준다.
       		//pstmt = conn.prepareStatement(
     		//		"insert into usr values(?,?,?,?,now())");
