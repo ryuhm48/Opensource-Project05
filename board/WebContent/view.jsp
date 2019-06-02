@@ -56,7 +56,7 @@ function getXMLHttpRequest(){
 		<input type="submit" value="등록">
 	</form>
 	<table border="1" width="200">
-		<c:forEach items="${list}" var="reply">
+		<c:forEach items="${replyList}" var="reply">
 			<tr>
 				<td>${reply.text}<a href="#" onclick="deleteReply(${reply.num})">[삭제]</a></td>
 				

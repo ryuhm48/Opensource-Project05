@@ -6,7 +6,7 @@ function writeCheck()
 {
 var form = document.writeform;
 
-if( form.userId.value!="Success" )
+if( !form.userId.value )
 {
 alert( "ID가 입력이 안되었습니다." );
 form.id.focus();
@@ -65,7 +65,7 @@ form.submit();
 			<tr>
 				<td colspan="2">
 					<div class="form-group">
-						<input type="text" class="form-control" id="inputId" name = "userId"
+						<input type="text" class="form-control" id="inputId" name = "id"
 							placeholder="ID">
 					</div>
 				</td>
@@ -73,7 +73,7 @@ form.submit();
 			<tr>
 				<td colspan="2">
 					<div class="form-group">
-						<input type="password" class="form-control" id="inputPassword" name = "pwd"
+						<input type="password" class="form-control" id="inputPassword" name = "password"
 							placeholder="Password">
 					</div>
 				</td>

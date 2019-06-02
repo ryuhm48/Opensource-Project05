@@ -1,7 +1,7 @@
-package com.board.action;
+package com.reply.action;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.board.beans.board;
+import com.reply.beans.reply;
 import com.board.controller.CommandAction;
+import java.sql.PreparedStatement;
 
-
-public class ReplyAddAction implements CommandAction {
+public class ReplyAction implements CommandAction {
 
 	@Override
 	public String requestPro(HttpServletRequest request,
@@ -22,17 +24,18 @@ public class ReplyAddAction implements CommandAction {
 
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = null;
-		PreparedStatement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int kind;
+		String text = request.getParameter("reply");
+
 		try {
 			kind = Integer.parseInt(request.getParameter("kind"));// 1= list 2= studylist
 		} catch (Exception e) {
 			kind = 1;
 		}
-		String opt = request.getParameter("opt");
-		String condition = request.getParameter("condition");
-		String text = request.getParameter("text");
+		System.out.println(request.getParameter("num"));
+		int board = Integer.parseInt(request.getParameter("num"));
 		try {
 			HttpSession session = request.getSession();
 			String id = (String) session.getAttribute("id");
@@ -48,13 +51,25 @@ public class ReplyAddAction implements CommandAction {
 			// "useUnicode=true&characterEncoding = euc-kr";
 			String dbUser = "root";
 			String dbPass = "";
-			String query = "insert into reply(text)value(?)";
+			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
 
-			pstmt = conn.prepareStatement("insert into replaydb(text)value(?)");
+			pstmt = conn.prepareStatement("insert into replydb value(?,NULL,?,?)");
 			pstmt.setString(1, text);
+			pstmt.setString(2, id);
+			pstmt.setInt(3, board);
 			// Äõ¸® ½ÇÇà
-			pstmt.executeUpdate();
 
+			pstmt.executeUpdate();
+			request.setAttribute("articlenum", new Integer(board));
+			// ArrayList<reply> replyList = new ArrayList<reply>();
+
+			// while (rs.next()) {
+			// board reply = new board();
+			// reply.setNum(rs.getInt("num"));
+			// reply.setText(rs.getString("text"));
+			// replyList.add(reply);
+			// request.setAttribute("replyList", replyList);
+			// }
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -63,9 +78,9 @@ public class ReplyAddAction implements CommandAction {
 					rs.close();
 				} catch (SQLException ex) {
 				}
-			if (stmt != null)
+			if (pstmt != null)
 				try {
-					stmt.close();
+					pstmt.close();
 				} catch (SQLException ex) {
 				}
 
@@ -75,15 +90,8 @@ public class ReplyAddAction implements CommandAction {
 				} catch (SQLException ex) {
 				}
 		}
-		return "view.jsp";
+		return "content.do";
 
 	}
 
-	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		DAO dao = new DAO();
-		ArrayList<DO> list = dao.list();
-
-		request.setAttribute("list", list);
-	}
 }

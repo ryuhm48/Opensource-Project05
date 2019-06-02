@@ -1,19 +1,21 @@
-package com.board.action;
+package com.reply.action;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.board.beans.board;
 import com.board.controller.CommandAction;
-import java.sql.PreparedStatement;
+import com.reply.beans.reply;
 
-public class ReplyAction implements CommandAction {
+public class ReplyAddAction implements CommandAction {
 
 	@Override
 	public String requestPro(HttpServletRequest request,
@@ -23,6 +25,7 @@ public class ReplyAction implements CommandAction {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		ResultSet rs = null;
 		int kind;
 		try {
@@ -30,9 +33,9 @@ public class ReplyAction implements CommandAction {
 		} catch (Exception e) {
 			kind = 1;
 		}
-		String opt = request.getParameter("opt");
-		String condition = request.getParameter("condition");
-		String text= request.getParameter("text");
+		System.out.println(request.getAttribute("articlenum"));
+		Integer numAttr = (Integer) request.getAttribute("articlenum");
+		int articlenum = numAttr.intValue();
 		try {
 			HttpSession session = request.getSession();
 			String id = (String) session.getAttribute("id");
@@ -48,14 +51,27 @@ public class ReplyAction implements CommandAction {
 			// "useUnicode=true&characterEncoding = euc-kr";
 			String dbUser = "root";
 			String dbPass = "";
-			String query = "insert into reply(text)value(?)";
 
-			pstmt = conn.prepareStatement("insert into replaydb(text)value(?)");
-			pstmt.setString(1, text);
-			// Äõ¸® ½ÇÇà
-			pstmt.executeUpdate();
+			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
 
+			String query = "SELECT * FROM replydb where board = " + articlenum;
 
+			// pstmt = conn.prepareStatement(query);
+			// pstmt.setString(1, text);
+			stmt = conn.createStatement();
+
+			rs = stmt.executeQuery(query);
+
+			ArrayList<reply> replyList = new ArrayList<reply>();
+			while (rs.next()) {
+				reply reply = new reply();
+				reply.setNum(rs.getInt("num"));
+				reply.setText(rs.getString("text"));
+				reply.setNum(rs.getInt("num"));
+				reply.setBoard(rs.getInt("board"));
+				replyList.add(reply);
+				request.setAttribute("replyList", replyList);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -76,7 +92,7 @@ public class ReplyAction implements CommandAction {
 				} catch (SQLException ex) {
 				}
 		}
-		return "view.jsp";
+		return "content.jsp";
 
 	}
 

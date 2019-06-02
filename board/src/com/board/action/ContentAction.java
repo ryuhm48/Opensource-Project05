@@ -89,8 +89,10 @@ public class ContentAction implements CommandAction {
 					article.setEmail(rs.getString("email"));
 					articleList.add(article);
 					request.setAttribute("articleList", articleList);
+					request.setAttribute("articlenum", new Integer(num));
 					String query2 = "UPDATE board SET score='" + score + "' WHERE num=" + num;
 					stmt.executeUpdate(query2);
+					
 				} else {
 					board study = new board();
 					study.setNum(rs.getInt("num"));
@@ -108,9 +110,10 @@ public class ContentAction implements CommandAction {
 					study.setMember("member");
 					studyList.add(study);
 					request.setAttribute("studyList", studyList);
+					request.setAttribute("articlenum", new Integer(num));
 				}
 			}
-
+			
 		} catch (SQLException ex) {
 
 		} finally {
@@ -132,7 +135,7 @@ public class ContentAction implements CommandAction {
 				}
 		}
 		if (kind == 1) {
-			return "content.jsp";
+			return "replyadd.do";
 		} else {
 			return "personalstudycontent.jsp";
 		}
