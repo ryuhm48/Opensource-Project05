@@ -16,6 +16,8 @@ public class ProblemDTO {
 
 	private String problemInput;
 	private String problemOutput;
+	private String problemInputEx;
+	private String problemOutputEx;
 	
 	public ProblemDTO()
 	{
@@ -36,6 +38,8 @@ public class ProblemDTO {
 		this.problemContent = problemContent;
 		this.problemInput = problemInput;
 		this.problemOutput = problemOutput;
+		this.problemInputEx = problemInputEx;
+		this.problemOutputEx = problemOutputEx;
 	}
 	
 	public int getStudyNum() {
@@ -125,5 +129,21 @@ public class ProblemDTO {
 	public void setProblemOutput(String problemOutput) {
 		this.problemOutput = problemOutput;
 	}
+	public String getProblemInputEx() {
+		return problemInputEx;
+	}
+
+	public void setProblemInputEx(String problemInputEx) {
+		this.problemInputEx = problemInputEx;
+	}
+
+	public String getProblemOutputEx() {
+		return problemOutputEx;
+	}
+
+	public void setProblemOutputEx(String problemOutputEx) {
+		this.problemOutputEx = problemOutputEx;
+	}
+
 	
 }

@@ -3,9 +3,11 @@ var SUBMISSION_CHECK_TIMEOUT = 10; // in ms
 var WAIT = localStorageGetItem("wait") == "true";
 
 var sourceEditor, inputEditor, outputEditor;
-var $insertTemplateBtn, $selectLanguageBtn, $runBtn, $saveBtn, $vimCheckBox;
+var $insertTemplateBtn, $selectLanguageBtn, $runBtn, $saveBtn, $vimCheckBox, $output;
 var $statusLine, $emptyIndicator;
 var timeStart, timeEnd;
+
+$output = $("#sourceOutput");
 
 function encode(str) {
   return btoa(unescape(encodeURIComponent(str)));
@@ -72,6 +74,9 @@ function toggleVim() {
 }
 
 function run() {
+	var Input = document.getElementById("input");
+	if(Input.value)
+		inputEditor.setValue(Input.value);
   if (sourceEditor.getValue().trim() == "") {
     alert("Source code can't be empty.");
     return;
@@ -106,8 +111,9 @@ function run() {
     },
     error: handleRunError
   });
-  
-  document.getElementById("sourceOutput").value = outputEditor.getValue();
+  var Output = document.getElementById("sourceOutput");
+  document.getElementById("problemNum1").value = document.getElementById("problemNum").value;
+  Output.value = outputEditor.innerText;
   
 }
 
@@ -125,6 +131,7 @@ function fetchSubmission(submission_token) {
     },
     error: handleRunError
   });
+  
 }
 
 function setEditorMode() {
@@ -195,12 +202,6 @@ $(document).ready(function() {
   
   $vimCheckBox.prop("checked", localStorageGetItem("keyMap") == "vim").change();
 
-  if (getIdFromURI()) {
-    loadSavedSource();
-  } else {
-    loadRandomLanguage();
-  }
-
   if (BASE_URL != "https://api.judge0.com") {
     $("#apiLink").attr("href", BASE_URL);
     $("#apiLink").html(BASE_URL);
@@ -234,9 +235,6 @@ $(document).ready(function() {
       WAIT=!WAIT;
       localStorageSetItem("wait", WAIT);
       alert(`Submission wait is ${WAIT ? "ON. Enjoy" : "OFF"}.`);
-    } else if (event.ctrlKey && keyCode == 83) { // Ctrl+S
-      e.preventDefault();
-      save();
     }
   });
 

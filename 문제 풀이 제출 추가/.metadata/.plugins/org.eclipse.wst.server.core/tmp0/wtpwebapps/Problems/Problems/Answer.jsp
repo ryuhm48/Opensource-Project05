@@ -1,29 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 
-<%@ page  import="Problem.ProblemDTO, java.util.ArrayList, javax.servlet.http.HttpServlet, javax.servlet.http.HttpServletRequest" %>
+<%@ page  import="Problem.ProblemDTO, javax.servlet.http.HttpServlet, javax.servlet.http.HttpServletRequest" %>
 <%
 	ProblemDTO prodto = (ProblemDTO)request.getAttribute("problem");
 	int problemNum;
 	String input;
-	String output;
 	if(prodto != null)
 	{
 		if(prodto.getProblemInput()!=null)
 			input = prodto.getProblemInput();
 		else
 			input = "";
-		if(prodto.getProblemOutput()!=null)
-			output = prodto.getProblemOutput();
-		else
-			output = "";
 		problemNum = prodto.getProblemNum1();
 	}
 	else
 	{
 		input = "";
-		output = "";
-		problemNum = 1;
+		problemNum = -1;
 	}
 %>
 <!DOCTYPE html>
@@ -78,8 +72,6 @@ pageEncoding="UTF-8"%>
   <script src="js/ide.js"></script>
 
   <title>Judge0 IDE</title>
-  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-  <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -151,20 +143,20 @@ pageEncoding="UTF-8"%>
       </div>
     </div>
   </nav>
-
-  <form name = "checkAnswer" action = "checkAnswer.do">
-  	<input type = "text" id = "output" value = "<%= output %>" style = "display : none;">
-  	<input type = "text" id = "problemNum" value = "<%= problemNum %>" style = "display : none;">
-  	<input type = "text" id = "input" value = "<%= input %>" style = "display : none;">
-  	<input type = "text" id = "sourceOutput" style = "display : none;">
+  	<input type = "text" id = "problemNum" value = "<%= problemNum %>">
+  <form action = "checkAnswer.do" id = "checkAnswer" method = "post">
+  	<input type = "text" id = "problemNum1">
+  	<input type = "text" id = "sourceOutput">
+  	<input type = "text" id = "source">
+  	<input type = "text" id = "answerLanguage">
+  	<input type = "text" id = "writerName">
   </form>
 
   <div id="sourceEditor"></div>
-
+	<input type = "text" id = "input" value = "<%= input %>" style = "display : none;">
   <div class="container-fluid">
     <div class="row labels">
     </div>
-
     <div class="row ioEditors" style = "display : none;">
       <div id="inputEditor" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
       <div id="outputEditor" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>

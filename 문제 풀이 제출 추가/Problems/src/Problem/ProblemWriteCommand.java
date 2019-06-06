@@ -14,9 +14,13 @@ public class ProblemWriteCommand implements ProblemCommand {
 		String problemLanguage = request.getParameter("problemLanguage");
 		String writerName = request.getParameter("writerName");
 		String problemContent = request.getParameter("problemContent");
+		String problemInput = request.getParameter("problemInput");
+		String problemOutput = request.getParameter("problemOutput");
+		String problemInputEx = request.getParameter("problemInputEx");
+		String problemOutputEx = request.getParameter("problemOutputEx");
 		ProblemDAO dao = new ProblemDAO();
 		
-		dao.write(studyNum, problemNum2, problemName, problemLanguage, writerName, problemContent);
+		dao.write(studyNum, problemNum2, problemName, problemLanguage, writerName, problemContent, problemInput, problemOutput, problemInputEx, problemOutputEx);
 	}
 
 }

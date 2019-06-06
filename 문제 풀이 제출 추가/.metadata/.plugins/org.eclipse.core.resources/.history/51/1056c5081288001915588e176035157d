@@ -1,0 +1,1 @@
+document.getElementById("tt").style.border-collapse = "collapse";

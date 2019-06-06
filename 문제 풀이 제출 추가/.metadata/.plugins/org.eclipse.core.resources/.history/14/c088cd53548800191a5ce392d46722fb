@@ -1,0 +1,77 @@
+package Problem;
+import java.sql.Timestamp;
+import java.sql.Date;
+
+public class AnswerDTO {
+
+	private int problemNum1;//전체 문항 번호
+	private String answerCode;//작성한 코드
+	private String answerLanguage;//작성 컴퓨터 언어
+	private String writerName;//작성자 이름
+	private Boolean problemCorrection;//정답 여부
+	private int answerNum;//제출 번호. primary key
+	
+	public AnswerDTO()
+	{
+		super();
+	}
+	
+	public AnswerDTO(int studyNum, int problemNum1, int problemNum2, String problemName, String problemLanguage, String writerName, Date problemDate, String problemContent, String problemInput, String problemOutput)
+	{
+		this.problemNum1 = 0;
+		this.answerCode = studyNum;
+		this.answerLanguage = problemNum1;
+		this.writerName = problemNum2;
+		this.problemCorrection = problemName;
+		this.problemLanguage = problemLanguage;
+	}
+
+	public int getProblemNum1() {
+		return problemNum1;
+	}
+
+	public void setProblemNum1(int problemNum1) {
+		this.problemNum1 = problemNum1;
+	}
+
+	public String getAnswerCode() {
+		return answerCode;
+	}
+
+	public void setAnswerCode(String answerCode) {
+		this.answerCode = answerCode;
+	}
+
+	public String getAnswerLanguage() {
+		return answerLanguage;
+	}
+
+	public void setAnswerLanguage(String answerLanguage) {
+		this.answerLanguage = answerLanguage;
+	}
+
+	public String getWriterName() {
+		return writerName;
+	}
+
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
+	}
+
+	public Boolean getProblemCorrection() {
+		return problemCorrection;
+	}
+
+	public void setProblemCorrection(Boolean problemCorrection) {
+		this.problemCorrection = problemCorrection;
+	}
+
+	public int getAnswerNum() {
+		return answerNum;
+	}
+
+	public void setAnswerNum(int answerNum) {
+		this.answerNum = answerNum;
+	}
+	
+}

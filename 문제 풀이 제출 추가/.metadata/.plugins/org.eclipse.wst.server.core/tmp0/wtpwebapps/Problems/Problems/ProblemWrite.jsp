@@ -20,6 +20,10 @@ int x = (int)request.getAttribute("studyNum");
 		<input type = "text" name = "problemLanguage" style = "display : none;" value = "C"><br/>
 		<input type = "text" name = "writerName" style = "display : none;" value = "김경태"><br/>
 		문제 내용<br/><textarea name = "problemContent" rows="15" cols="80"></textarea><br/><br/>
+		예제입력(필수 아님)<br/><textarea name = "problemInputEx" rows="15" cols="30"></textarea><br/><br/>
+		예제출력(필수 아님)<br/><textarea name = "problemOutputEx" rows="15" cols="30"></textarea><br/><br/>
+		문제입력(필수 아님)<br/><textarea name = "problemInput" rows="15" cols="30"></textarea><br/><br/>
+		문제출력(필수 아님)<br/><textarea name = "problemOutput" rows="15" cols="30"></textarea><br/><br/>
 		<input type = "submit" value = "게시"></br>
 	</form>
 	

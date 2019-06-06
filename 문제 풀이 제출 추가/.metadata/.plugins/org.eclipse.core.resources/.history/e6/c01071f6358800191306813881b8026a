@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+
+<%@ page  import="Problem.ProblemDTO, javax.servlet.http.HttpServlet, javax.servlet.http.HttpServletRequest" %>
+<%
+	ProblemDTO prodto = (ProblemDTO)request.getAttribute("problem");
+	int problemNum;
+	String problemName;
+	String problemContent;
+	if(prodto != null)
+	{
+		if(prodto.getProblemName()!=null)
+			problemName = prodto.getProblemName();
+		else
+			problemName = "";
+		if(prodto.getProblemContent()!=null)
+			problemContent = prodto.getProblemContent();
+		else
+			problemContent = "";
+		problemNum = prodto.getProblemNum1();
+	}
+	else
+	{
+		problemName = "";
+		problemContent = "";
+		problemNum = 1;
+	}
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content = text/html; charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2><%= problemName %></h2></br>
+	<textarea></textarea>
+	<form action = "Answer.do">
+		<input type = "text" name = "problemNum" id = "problemNum" style = "display : none">
+	</form>
+	<script>
+		function doAnswer(a){
+			var c = a.parentNode.parentNode.children[0].innerText;
+			var f = document.getElementById("problemNum");
+			f.value ="" + c;
+			f.parentNode.submit();
+		}
+	</script>
+	<a onclick = "document.getElementById('write').submit();">글쓰기</a>
+</body>
+</html>

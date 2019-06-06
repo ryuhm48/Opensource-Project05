@@ -12,6 +12,8 @@ import Problem.ProblemCommand;
 import Problem.ProblemListCommand;
 import Problem.ProblemWriteCommand;
 import Problem.ProblemWriteUICommand;
+import Problem.ShowProblemCommand;
+import Problem.AnswerListCommand;
 import Problem.AnswerSubmitCommand;
 
 @WebServlet("*.do")
@@ -50,10 +52,22 @@ public class ProblemFrontController extends HttpServlet {
 			nextPage = "list.do";
 		}
 		
+		if(c.equals("/Show.do")) {
+			command = new ShowProblemCommand();
+			command.execute(request, response);
+			nextPage = "Show.jsp";
+		}
+		
 		if(c.equals("/Answer.do")) {
 			command = new AnswerSubmitCommand();
 			command.execute(request, response);
 			nextPage = "Answer.jsp";
+		}
+		
+		if(c.equals("/checkAnswer.do")) {
+			command = new AnswerListCommand();
+			command.execute(request, response);
+			nextPage = "AnswerList.jsp";
 		}
 		
 		RequestDispatcher dis = request.getRequestDispatcher(nextPage);
