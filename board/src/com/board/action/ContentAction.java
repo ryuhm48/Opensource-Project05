@@ -3,18 +3,20 @@
  */
 package com.board.action;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpServletResponse;
-
 import javax.servlet.http.HttpSession;
 
 import com.board.beans.board;
-
 import com.board.controller.CommandAction;
+import com.study.beans.study;
 
 public class ContentAction implements CommandAction {
 
@@ -25,15 +27,18 @@ public class ContentAction implements CommandAction {
 		Class.forName("com.mysql.jdbc.Driver");
 		// ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ô·Â¹Þ¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		int num = Integer.parseInt(request.getParameter("num"));
+		System.out.println(num);
 		int kind;
 		try {
 			kind = Integer.parseInt(request.getParameter("kind"));// 1= list 2= studylist
 		} catch (Exception e) {
-			kind=1;
+			kind = 1;
 		}
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
+		String admin = null;
+		String id = null;
 
 		// ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		int score = 0;
@@ -41,7 +46,7 @@ public class ContentAction implements CommandAction {
 		try {
 			// ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½Î»ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½Î±ï¿½ï¿½ï¿½Ã¢ È£ï¿½ï¿½
 			HttpSession session = request.getSession();
-			String id = (String) session.getAttribute("id");
+			id = (String) session.getAttribute("id");
 			if (id == null) {
 				return "loginerror.jsp";
 			}
@@ -67,15 +72,16 @@ public class ContentAction implements CommandAction {
 
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(query);
-				query3= "select * MID(SUBSTRING(member,LOCATE(',',member)+1)"
-						+ ",LOCATE(',',member),LOCATE(',',SUBSTRING(member,LOCATE(',',member)+1))-1) "
-						+ "from userdb where num = " + num;
-				stmt = conn.createStatement();
-				stmt.executeQuery(query3);
+				// query3 = "select * MID(SUBSTRING(member,LOCATE(',',member)+1)"
+				// + ",LOCATE(',',member),LOCATE(',',SUBSTRING(member,LOCATE(',',member)+1))-1)
+				// "
+				// + "from userdb where num = " + num;
+				// stmt = conn.createStatement();
+				// stmt.executeQuery(query3);
 			}
 			// ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½
 			ArrayList<board> articleList = new ArrayList<board>();
-			ArrayList<board> studyList = new ArrayList<board>();
+			ArrayList<study> studyList = new ArrayList<study>();
 			while (rs.next()) {
 				if (kind == 1) {
 					board article = new board();
@@ -89,32 +95,72 @@ public class ContentAction implements CommandAction {
 					article.setEmail(rs.getString("email"));
 					articleList.add(article);
 					request.setAttribute("articleList", articleList);
+					String query2 = "UPDATE board SET score='" + score + "' WHERE num=" + num;
+					stmt.executeUpdate(query2);
+
+				} else if (kind == 2) {
+					board article = new board();
+					article.setNum(rs.getInt("num"));
+					article.setSubject(rs.getString("subject"));
+					article.setContent(rs.getString("content"));
+					article.setId(rs.getString("id"));
+					article.setBoarddate(rs.getString("boarddate"));
+					score = Integer.parseInt(rs.getString("score")) + 1;
+					article.setScore(String.valueOf(score));
+					article.setEmail(rs.getString("email"));
+					article.setBoardnum(rs.getInt("boardnum"));
+					articleList.add(article);
+					String query2 = "UPDATE board SET score='" + score + "' WHERE num=" + num;
+					stmt.executeUpdate(query2);
+				} else if (kind == 3) {// ÀÚ·á°Ô½ÃÆÇ ÆÄÀÏÃß°¡
+					board article = new board();
+					article.setNum(rs.getInt("num"));
+					article.setSubject(rs.getString("subject"));
+					article.setContent(rs.getString("content"));
+					article.setId(rs.getString("id"));
+					article.setBoarddate(rs.getString("boarddate"));
+					score = Integer.parseInt(rs.getString("score")) + 1;
+					article.setScore(String.valueOf(score));
+					article.setEmail(rs.getString("email"));
+					article.setBoardnum(rs.getInt("boardnum"));
+					articleList.add(article);
+					request.setAttribute("articleList", articleList);
 					request.setAttribute("articlenum", new Integer(num));
 					String query2 = "UPDATE board SET score='" + score + "' WHERE num=" + num;
 					stmt.executeUpdate(query2);
-					
+				} else if (kind == 4) {
+					board article = new board();
+					article.setNum(rs.getInt("num"));
+					article.setSubject(rs.getString("subject"));
+					article.setContent(rs.getString("content"));
+					article.setId(rs.getString("id"));
+					article.setBoarddate(rs.getString("boarddate"));
+					score = Integer.parseInt(rs.getString("score")) + 1;
+					article.setScore(String.valueOf(score));
+					article.setEmail(rs.getString("email"));
+					article.setBoardnum(rs.getInt("boardnum"));
+					articleList.add(article);
+					request.setAttribute("articleList", articleList);
+					request.setAttribute("articlenum", new Integer(num));
+					String query2 = "UPDATE board SET score='" + score + "' WHERE num=" + num;
+					stmt.executeUpdate(query2);
 				} else {
-					board study = new board();
+
+					study study = new study();
 					study.setNum(rs.getInt("num"));
 					study.setName(rs.getString("name"));
 					study.setInform(rs.getString("inform"));
 					study.setAdministor(rs.getString("administor"));
-					//, °³¼ö Ã£±â
-					int LineCnt=0;
-					int fromIndex=-1;
-					while((fromIndex = query3.indexOf(",",fromIndex+1))>=0) {
-						LineCnt++;
-					}
-					for(int i=0;i<LineCnt;i++) {//È¸¿ø ÀúÀå
-					}
-					study.setMember("member");
 					studyList.add(study);
 					request.setAttribute("studyList", studyList);
 					request.setAttribute("articlenum", new Integer(num));
 				}
 			}
 			
-		} catch (SQLException ex) {
+
+		} catch (
+
+		SQLException ex) {
 
 		} finally {
 			if (rs != null)
@@ -134,10 +180,16 @@ public class ContentAction implements CommandAction {
 				} catch (SQLException ex) {
 				}
 		}
-		if (kind == 1) {
+		if (kind == 1) {// kindº°·Î ¼öÁ¤
+			return "replyadd.do";
+		} else if (kind == 2) {
+			return "replyadd.do";
+		} else if (kind == 3) {
+			return "replyadd.do";
+		} else if (kind == 4) {
 			return "replyadd.do";
 		} else {
-			return "personalstudycontent.jsp";
+			return "comparemember.do?administor=${study.administor}&studynum=${study.num}";
 		}
 	}
 

@@ -9,7 +9,7 @@
 <body>
 <script>
    self.window.alert("스터디를 생성하였습니다.");
-   location.href="list.do?kind=${2}";
+   location.href="list.do?kind=${5}";
 
 </script>
 </body>

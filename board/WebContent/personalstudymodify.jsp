@@ -6,7 +6,7 @@
 <body>
 	<script language=javascript>
 		self.window.alert("스터디가 수정되었습니다.");
-		location.href = "content.do?kind=${2}";
+		location.href = "content.do?kind=${5}";
 	</script>
 </body>
 </html>

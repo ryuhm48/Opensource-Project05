@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.board.beans.board;
 import com.board.controller.CommandAction;
+import com.study.beans.study;
 
 public class ListAction implements CommandAction {
 
@@ -54,18 +55,20 @@ public class ListAction implements CommandAction {
 			String dbUser = "root";
 			String dbPass = "";
 			String query = null;
-
+			System.out.println(condition);
 			if (kind == 1) {
 				if (opt == null) {
 					query = "select * from board order by num";
-				} else if (opt.equals("0")) {
+					
+				} else if (opt.equals("0")) {//수정
 					query = "select * from board where subject like '%" + condition + "%' order by num";
-				} else if (opt.equals("1")) {
+				} else if (opt.equals("1")) {//수정
 					query = "select * from board where content like '%" + condition + "%' order by num";
-				} else if (opt.equals("2")) {
+				} else if (opt.equals("2")) {//수정
 					query = "select * from board where id like '%" + condition + "%' order by num";
 				}
-			} else {
+			} 
+			else {
 				if (opt == null) {
 					query = "select * from studydb order by num";
 				} else if (opt.equals("0")) {
@@ -79,10 +82,9 @@ public class ListAction implements CommandAction {
 			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
 
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery(query);
-
+			rs =stmt.executeQuery(query);
 			ArrayList<board> articleList = new ArrayList<board>();
-			ArrayList<board> studyList = new ArrayList<board>();
+			ArrayList<study> studyList = new ArrayList<study>();
 
 			while (rs.next()) {
 				if (kind == 1) {
@@ -96,7 +98,7 @@ public class ListAction implements CommandAction {
 					articleList.add(article);
 					request.setAttribute("articleList", articleList);
 				} else {
-					board study = new board();
+					study study = new study();
 					study.setNum(rs.getInt("num"));
 					study.setName(rs.getString("name"));
 					study.setInform(rs.getString("inform"));
@@ -129,6 +131,15 @@ public class ListAction implements CommandAction {
 		}
 		if (kind == 1)
 			return "list.jsp";
+		else if (kind==2) {
+			return "delete.jsp";
+		}
+		else if (kind==3) {
+			return "delete.jsp";
+		}
+		else if (kind==4) {
+			return "delete.jsp";
+		}
 		else
 			return "personalstudylist.jsp";
 	}

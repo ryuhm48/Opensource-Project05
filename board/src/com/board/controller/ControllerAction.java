@@ -41,7 +41,6 @@ public class ControllerAction extends HttpServlet {
                 commandMap.put(command, commandInstance); 
  
             } catch (ClassNotFoundException e) {
-                System.out.println("not found : ");
                 
                 continue; // error
                
@@ -97,8 +96,6 @@ public class ControllerAction extends HttpServlet {
             com = (CommandAction) commandMap.get(command);
  
             if (com == null) {
- 
-                System.out.println("not found : " + command);
  
                 return;
  

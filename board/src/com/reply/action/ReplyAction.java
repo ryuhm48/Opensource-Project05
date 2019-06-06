@@ -26,6 +26,7 @@ public class ReplyAction implements CommandAction {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		String query =null;
 		int kind;
 		String text = request.getParameter("reply");
 
@@ -73,24 +74,60 @@ public class ReplyAction implements CommandAction {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if (rs != null)
-				try {
-					rs.close();
-				} catch (SQLException ex) {
-				}
-			if (pstmt != null)
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-
-			if (conn != null)
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-				}
+			
 		}
-		return "content.do";
+		System.out.println("1s");
+		query="alter table replydb auto_increment=1";
+	      try {
+	          pstmt=conn.prepareStatement(query);
+	          pstmt.executeUpdate();
+	       }
+	       catch(SQLException e){
+	          e.printStackTrace();
+	       }
+	       finally {
+	          
+	       }
+	      query="set @count=0";
+	      try {
+	          pstmt=conn.prepareStatement(query);
+	          pstmt.executeUpdate();
+	       }
+	       catch(SQLException e){
+	          e.printStackTrace();
+	       }
+	       finally {
+	          
+	       }
+	      System.out.println("2s");
+	      query="update replydb set replydb.num=@count:=@count+1";
+	      try {
+	          pstmt=conn.prepareStatement(query);
+	          pstmt.executeUpdate();
+	       }
+	       catch(SQLException e){
+	          e.printStackTrace();
+	       }
+	       finally {
+	    	   if (rs != null)
+					try {
+						rs.close();
+					} catch (SQLException ex) {
+					}
+				if (pstmt != null)
+					try {
+						pstmt.close();
+					} catch (SQLException ex) {
+					}
+
+				if (conn != null)
+					try {
+						conn.close();
+					} catch (SQLException ex) {
+					}
+	       }
+	      System.out.println("3s");
+		return "replyadd.do";
 
 	}
 

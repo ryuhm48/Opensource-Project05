@@ -47,7 +47,7 @@ public class DeleteAction implements CommandAction {
 			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
 			stmt = conn.createStatement();
 
-			if (kind == 1) {
+			if (kind != 5) {
 				String sql = "DELETE FROM board WHERE num=" + num;
 				stmt.executeUpdate(sql);
 			} 
@@ -75,6 +75,16 @@ public class DeleteAction implements CommandAction {
 		}
 		if(kind==1)
 			return "delete.jsp";
+		else if (kind==2) {
+			return "delete.jsp";
+		}
+		else if (kind==3) {
+			return "delete.jsp";
+		}
+		else if (kind==4) {
+			return "delete.jsp";
+		}
+		
 		else
 			return "personalstudydelete.jsp";
 

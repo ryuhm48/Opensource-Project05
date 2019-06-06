@@ -9,6 +9,15 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+  function join(){
+	  if(confirm("스터디 가입신청을 하시겠습니까?")==true){
+		  window.location='studyjoin.do';
+	  }
+	  else return;
+	  
+  }
+  </script>
 </head>
 
 <body>
@@ -33,19 +42,15 @@
 		</tr>
 		<tr>
 			<td>멤버</td>
-			<td style="text-align:left">$(function(){
-				String token[]= study.member.split(",");
-				for(int i=0;i < token.length;i++)
-					token[i];
-			});</td>						
+			<td style="text-align:left"><a href="content.do?num=${article.num}&kind=${1}">
+			보러가기</a></td>					
 		</tr>
 		
 		
 	</table>
 	<div style="text-align:right">
-		<input type=button class="btn btn-danger" value="삭제하기" OnClick="window.location='delete.do?num=${study.num}&kind=${2}'">
-		<input type=button class="btn btn-warning" value="수정하기" OnClick="window.location='modifyform.do?num=${study.num}&kind=${2}'">			
-		<input type=button class="btn btn-secondary" value="돌아가기" OnClick="window.location='list.do?kind=${2}'">
+		<input type=button class="btn btn-danger" value="가입신청하기" OnClick=join()>		
+		<input type=button class="btn btn-secondary" value="돌아가기" OnClick="window.location='list.do?kind=${5}'">
 	</div>
 	</c:forEach>		
 </body>

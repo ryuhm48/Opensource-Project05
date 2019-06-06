@@ -16,7 +16,7 @@
 		사용자ID : ${id} <input type=button class="btn btn-info" value="로그아웃" OnClick="window.location='logout.do'">
 	</div>
 	<table class="table table-striped table-bordered table-hover">
-		<caption style="text-align:center">게시판</caption>
+		<caption style="text-align:center">게인 스터디게시판</caption>
 		<tr>
 			<th style="text-align:center">번호</th>
 			<th style="text-align:center">스터디명</th>
@@ -27,7 +27,7 @@
 			<c:forEach items="${studyList}" var="study">
 		<tr>
 			<th style="text-align:center">${study.num}</th>
-			<th style="text-align:left"><a href="content.do?num=${study.num}&kind=${2 }">
+			<th style="text-align:left"><a href="content.do?num=${study.num}&kind=${5}">
 			${study.name}</a></th>
 			<th style="text-align:center">${study.administor}</th>
 			<th style="text-align:center">${study.inform}</th>			
@@ -43,9 +43,9 @@
 			<div id="searchForm" style="text-align:center">
 				<form>
 					<select name="opt">
-						<option value="0">제목</option>
-						<option value="1">내용</option>
-						<option value="2">작성자</option>
+						<option value="0">스터디명</option>
+						<option value="1">관리자</option>
+						<option value="2">작성자?</option>
 					</select>
 					<input type="text" size="20" name="condition"/>
 					<input class="btn btn-secondary" type="submit" value="검색"/>

@@ -27,7 +27,7 @@ public class ModifyAction implements CommandAction {
 		try {
 			kind = Integer.parseInt(request.getParameter("kind"));// 1= list 2= studylist
 		} catch (Exception e) {
-			kind=1;
+			kind = 1;
 		}
 		// String url = "jdbc:mysql://127.0.0.1/jspdb";
 		String dbUser = "root";
@@ -48,12 +48,18 @@ public class ModifyAction implements CommandAction {
 			stmt = conn.createStatement();
 			String sql = null;
 			System.out.println(kind);
-			if (kind == 1) {
+			if (kind == 1 || kind == 2 || kind == 4) {
 				String num = request.getParameter("num");
 				String subject = request.getParameter("subject");
 				String content = request.getParameter("content");
 				sql = "UPDATE board SET subject='" + subject + "' ,content='" + content + "' WHERE num=" + num;
 
+			} else if (kind == 3) {
+				String num = request.getParameter("num");
+				String subject = request.getParameter("subject");
+				String content = request.getParameter("content");
+				sql = "UPDATE board SET subject='" + subject + "' ,content='" + content + "' WHERE num=" + num;
+				//파일추가
 			} else {
 				String num = request.getParameter("num");
 				String inform = request.getParameter("inform");
@@ -81,6 +87,12 @@ public class ModifyAction implements CommandAction {
 		}
 
 		if (kind == 1)
+			return "content.do?&kind=${1}";
+		else if(kind==2)
+			return "content.do?&kind=${1}";
+		else if(kind==3)
+			return "content.do?&kind=${1}";
+		else if(kind==4)
 			return "content.do?&kind=${1}";
 		else
 			return "content.do?&kind=${2}";

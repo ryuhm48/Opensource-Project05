@@ -40,7 +40,7 @@
 				<input type=button class="btn btn-success" value="작성하기" OnClick="window.location='writeform.jsp'">
 			</div>
 			<div style="text-align:right">
-				<input type=button class="btn btn-success" value="스터디 이동" OnClick="window.location='list.do?kind=${2}'">
+				<input type=button class="btn btn-success" value="스터디 이동" OnClick="window.location='list.do?kind=${5}'">
 			</div>
 			<div id="searchForm" style="text-align:center">
 				<form>

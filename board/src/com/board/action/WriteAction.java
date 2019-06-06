@@ -65,8 +65,7 @@ public class WriteAction implements CommandAction {
 			// String query = "select * COALESCE(max(num),0) from board where num =
 			// '"+num+"';";
 
-			System.out.println("ok");
-			if (kind == 1) {
+			if (kind == 1 ||kind == 2||kind == 4) {
 				pstmt = conn.prepareStatement(
 
 						"insert into board values(NULL,?,?,?,?,now(),0,?)");
@@ -74,17 +73,37 @@ public class WriteAction implements CommandAction {
 				pstmt.setString(2, subject);
 				pstmt.setString(3, content);
 				pstmt.setString(4, email);
-				pstmt.setInt(5, 1);
+				pstmt.setInt(5, kind);
 				// 쿼리 실행
 				pstmt.executeUpdate();
-			} else {
+			} 
+			else if (kind==3){//파일추가
+				pstmt = conn.prepareStatement(
+
+						"insert into board values(NULL,?,?,?,?,now(),0,?)");
+				pstmt.setString(1, id);
+				pstmt.setString(2, subject);
+				pstmt.setString(3, content);
+				pstmt.setString(4, email);
+				pstmt.setInt(5, kind);
+				// 쿼리 실행
+				pstmt.executeUpdate();
+			}
+			else {
 				pstmt = conn.prepareStatement("insert into studydb values(NULL,?,?,?,NULL)");
 				pstmt.setString(1, name);
 				pstmt.setString(2, inform);
 				pstmt.setString(3, administor);
 				// 쿼리 실행
 				pstmt.executeUpdate();
+				
+				//studydb num userdb id
+				pstmt = conn.prepareStatement("insert into userstudydb values(NULL,NULL,NULL,?)");
+				pstmt.setBoolean(1, true);
+				pstmt.executeUpdate();
+				
 
+				
 			}
 
 		} catch (SQLException ex) {

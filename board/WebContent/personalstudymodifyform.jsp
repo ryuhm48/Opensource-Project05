@@ -5,16 +5,16 @@
 		  {
 		   var form = document.writeform;
 		   
-		  if( !form.subject.value )
+		  if( !form.name.value )
 		   {
-		    alert( "제목을 적어주세요" );
+		    alert( "이름을 적어주세요" );
 		    form.subject.focus();
 		    return;
 		   }
 		 
-		  if( !form.content.value )
+		  if( !form.inform.value )
 		   {
-		    alert( "내용을 적어주세요" );
+		    alert( "정보를 적어주세요" );
 		    form.content.focus();
 		    return;
 		   }  
@@ -37,7 +37,7 @@
 	<form action ="/board/modify.do" method="get">
 		<c:forEach items="${studyList}" var="study">
 			<input type="hidden" name="num" value="${study.num}">
-			<input type="hidden" name="kind" value=2>
+			<input type="hidden" name="kind" value=5>
 		
 			<table class="table table-striped table-bordered table-hover" style="text-align:center">
 				<caption style="text-align:center">스터디 수정</caption>		
@@ -57,7 +57,7 @@
 					<td></td>
 					<td style="text-align:right">
 						<input type=submit class="btn btn-warning" value="수정" Onclick="javascript:writeCheck();">
-						<input type=button class="btn btn-secondary" value="취소" OnClick="window.location='content.do?num=${study.num}&kind=${2}'">
+						<input type=button class="btn btn-secondary" value="취소" OnClick="window.location='content.do?num=${study.num}&kind=${5}'">
 					</td>
 				</tr>	
 			</table>

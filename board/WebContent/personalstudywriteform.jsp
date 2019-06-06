@@ -35,7 +35,7 @@ function writeCheck()
 		사용자ID : ${id} <input type=button class="btn btn-info" value="로그아웃" OnClick="window.location='logout.do'">
 	</div>
 	<form id="inform" action ="/board/write.do" method="post">
-		<input type="hidden" name="kind" value=2>
+		<input type="hidden" name="kind" value=5>
 		<table style="text-align:center" class="table table-striped table-bordered table-hover">
 			<caption style="text-align:center">게시판 작성</caption>
 			<tr >
@@ -58,7 +58,7 @@ function writeCheck()
 				<th></th>
 				<th style="text-align:right">		
 					<input type=submit class="btn btn-success" value="등록" Onclick="javascript:writeCheck();">
-					<input type=button class="btn btn-secondary" value="취소" OnClick="window.location='list.do?kind=${2}'">
+					<input type=button class="btn btn-secondary" value="취소" OnClick="window.location='list.do?kind=${5}'">
 				</th>
 			</tr>
 		</table>

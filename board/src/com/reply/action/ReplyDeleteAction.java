@@ -34,16 +34,7 @@ public class ReplyDeleteAction implements CommandAction {
 		} catch (Exception e) {
 			kind = 1;
 		}
-		String opt = request.getParameter("opt");
-		String condition = request.getParameter("condition");
-		String text = request.getParameter("text");
 		try {
-			HttpSession session = request.getSession();
-			String id = (String) session.getAttribute("id");
-			if (id == null) {
-				return "loginerror.jsp";
-			}
-
 			String jdbc_driver = "com.mysql.jdbc.Driver";
 			String jdbc_url = "jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC";
 
@@ -52,16 +43,60 @@ public class ReplyDeleteAction implements CommandAction {
 			// "useUnicode=true&characterEncoding = euc-kr";
 			String dbUser = "root";
 			String dbPass = "";
-			
+
 			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
-			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			HttpSession session = request.getSession();
+			String id = (String) session.getAttribute("id");
+			if (id == null) {
+				return "loginerror.jsp";
+			}
+
 			String query = "delete from replydb where num=?";
-
-			stmt = conn.createStatement();
+			pstmt.setInt(1, num);
+			pstmt = conn.prepareStatement(query);
 			// 孽府 角青
-			stmt.executeUpdate(query);
+			pstmt.executeUpdate();
 
-		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+		}
+		try {
+			String query = "alter table replydb auto_increment=1";
+
+			pstmt = conn.prepareStatement(query);
+			// 孽府 角青
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		}
+		try {
+
+			String query = "set @count=0";
+
+			pstmt = conn.prepareStatement(query);
+			// 孽府 角青
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	
+		}
+		try {
+			String query = "update replydb set replydb.num=@count:=@count+1";
+			pstmt = conn.prepareStatement(query);
+			// 孽府 角青
+			pstmt.executeUpdate();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -82,7 +117,7 @@ public class ReplyDeleteAction implements CommandAction {
 				} catch (SQLException ex) {
 				}
 		}
-		return "content.jsp";
+		return "replyadd.do";
 
 	}
 

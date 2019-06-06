@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.board.beans.board;
 import com.board.controller.CommandAction;
+import com.study.beans.study;
 
 public class ModifyformAction implements CommandAction {
 
@@ -60,13 +61,13 @@ public class ModifyformAction implements CommandAction {
 
 			}
 			ArrayList<board> articleList = new ArrayList<board>();
-			ArrayList<board> studyList = new ArrayList<board>();
+			ArrayList<study> studyList = new ArrayList<study>();
 			stmt = conn.createStatement();
 
 			rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				if (kind == 1) {
+				if (kind == 1) {//수정필요
 					board article = new board();
 					article.setNum(rs.getInt("num"));
 					article.setSubject(rs.getString("subject"));
@@ -77,7 +78,7 @@ public class ModifyformAction implements CommandAction {
 					articleList.add(article);
 					request.setAttribute("articleList", articleList);
 				} else {
-					board study = new board();
+					study study = new study();
 					study.setNum(rs.getInt("num"));
 					study.setName(rs.getString("name"));
 					study.setInform(rs.getString("inform"));
@@ -113,6 +114,12 @@ public class ModifyformAction implements CommandAction {
 		}
 		if (kind == 1)
 			return "modifyform.jsp";
+		else if(kind==2)
+			return "content.do?&kind=${1}";
+		else if(kind==3)
+			return "content.do?&kind=${1}";
+		else if(kind==4)
+			return "content.do?&kind=${1}";
 		else
 			return "personalstudymodifyform.jsp";
 

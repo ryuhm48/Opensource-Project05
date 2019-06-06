@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.board.beans.board;
 import com.board.controller.CommandAction;
 import com.reply.beans.reply;
 
@@ -33,9 +34,8 @@ public class ReplyAddAction implements CommandAction {
 		} catch (Exception e) {
 			kind = 1;
 		}
-		System.out.println(request.getAttribute("articlenum"));
-		Integer numAttr = (Integer) request.getAttribute("articlenum");
-		int articlenum = numAttr.intValue();
+		
+		int articlenum = Integer.parseInt(request.getParameter("num"));
 		try {
 			HttpSession session = request.getSession();
 			String id = (String) session.getAttribute("id");
@@ -92,6 +92,8 @@ public class ReplyAddAction implements CommandAction {
 				} catch (SQLException ex) {
 				}
 		}
+	      System.out.println("4s");
+
 		return "content.jsp";
 
 	}
