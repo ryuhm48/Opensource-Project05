@@ -58,7 +58,7 @@ public class JoinAction implements CommandAction{
     		//로그인 관련 세션 선언
     		HttpSession session = request.getSession();
     		
-    		session.setAttribute("id", userId);	
+    		session.setAttribute("userId", userId);	
     				
     	} catch(SQLException ex){
 			
@@ -70,7 +70,8 @@ public class JoinAction implements CommandAction{
     		if(conn != null) try{conn.close();} catch(SQLException ex){}
 
     		}
-    	return "UserJoin.jsp";
+    	
+    	return "join.jsp";
     }
 }
 

@@ -1,6 +1,4 @@
-/**
- * �α׾ƿ� ������ ������ �����ϰ� �α��� ȭ������ ���ư�
- */
+
 package com.login.action;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +12,9 @@ public class LogoutAction implements CommandAction{
 	public String requestPro(HttpServletRequest request,
 			HttpServletResponse response) throws Throwable {
 		HttpSession session = request.getSession();
-		//���� ����
+		
 		session.invalidate();
-		return "index.jsp";
+		return "LoginState.jsp";
 	}
 
 }

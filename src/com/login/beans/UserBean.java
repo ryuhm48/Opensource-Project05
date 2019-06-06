@@ -37,6 +37,9 @@ public class UserBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	@Override
+	public String toString() {
+		return "UserBean [userId="+userId+ ", pwd=" + pwd + ", name=" + name + ", gender=" + gender + ", email=" + email + "]";
+	}
 	
 }
