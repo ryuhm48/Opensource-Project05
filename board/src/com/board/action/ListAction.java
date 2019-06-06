@@ -68,6 +68,7 @@ public class ListAction implements CommandAction {
 					query = "select * from board where id like '%" + condition + "%' order by num";
 				}
 			} 
+	
 			else {
 				if (opt == null) {
 					query = "select * from studydb order by num";

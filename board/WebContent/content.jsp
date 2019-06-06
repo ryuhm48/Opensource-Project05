@@ -40,7 +40,7 @@ function getXMLHttpRequest(){
 
         httpRequest = getXMLHttpRequest();
         httpRequest.onreadystatechange = checkFunc;
-        httpRequest.open("POST", "delete.co", true);    
+        httpRequest.open("POST", "delete.do", true);    
         httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=EUC-KR'); 
         httpRequest.send(param);
     }

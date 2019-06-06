@@ -8,12 +8,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.board.controller.CommandAction;
+import com.study.beans.study;
 
 public class CompareMemberAction implements CommandAction {
 
@@ -23,8 +25,11 @@ public class CompareMemberAction implements CommandAction {
 
 		Class.forName("com.mysql.jdbc.Driver");
 		// ��ȣ�� �Է¹޾ƿ� ������ ����
-		int num = Integer.parseInt(request.getParameter("studynum"));
-		System.out.println(num);
+		System.out.println(request.getAttribute("studyList"));
+		ArrayList<study> sl =(ArrayList<study>)request.getAttribute("studyList");
+		study laststudy = sl.get(sl.size()-1);
+		int num = laststudy.getNum();
+		
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -42,7 +47,9 @@ public class CompareMemberAction implements CommandAction {
 			// ���� Ȯ���� �α��λ��°� �ƴϸ� �α���â ȣ��
 			HttpSession session = request.getSession();
 			id = (String) session.getAttribute("id");
-			administor=request.getParameter("administor");
+			administor=laststudy.getAdministor();
+			System.out.println("admin"+administor);
+			System.out.println("studynum"+num);
 			if (id == null) {
 				return "loginerror.jsp";
 			}
@@ -102,6 +109,7 @@ public class CompareMemberAction implements CommandAction {
 				} catch (SQLException ex) {
 				}
 		}
+		System.out.println(membercheck);
 		if(membercheck==0)
 			return "personalstudycontent.jsp";
 		else if(membercheck==1)

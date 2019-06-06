@@ -8,8 +8,8 @@
 </head>
 <body>
 <script>
-   self.window.alert("로그인정보가 일치하지 않습니다.");
-   location.href="LoginForm.jsp"; 
+   self.window.alert("패스워드가 일치하지 않습니다.");
+   location.href="UserUpdateForm.jsp"; 
 
 </script>
 </body>

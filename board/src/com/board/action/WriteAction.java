@@ -26,10 +26,12 @@ public class WriteAction implements CommandAction {
 		String subject = request.getParameter("subject");
 		String content = request.getParameter("content");
 		String email = request.getParameter("email");
+		
 		String name = request.getParameter("name");
 		String inform = request.getParameter("inform");
 		String administor = request.getParameter("administor");
-
+		
+		
 		int kind;
 		try {
 			kind = Integer.parseInt(request.getParameter("kind"));// 1= list 2= studylist
@@ -45,6 +47,7 @@ public class WriteAction implements CommandAction {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		ResultSet rs = null;
 		try {
 			HttpSession session = request.getSession();
@@ -96,11 +99,23 @@ public class WriteAction implements CommandAction {
 				pstmt.setString(3, administor);
 				// 쿼리 실행
 				pstmt.executeUpdate();
+				System.out.println("userstudinsert1");
+				String query2="select* from studydb where name = '" + name + "' and inform = '" + inform + "'administor = '"+administor+"';";
 				
-				//studydb num userdb id
-				pstmt = conn.prepareStatement("insert into userstudydb values(NULL,NULL,NULL,?)");
-				pstmt.setBoolean(1, true);
+
+				pstmt = conn.prepareStatement(query2);
+				rs=pstmt.executeQuery();
+				System.out.println("userstudinsert2");
+				pstmt = conn.prepareStatement("insert into userstudydb values(NULL,?,?,?)");
+				while(rs.next()) {
+					pstmt.setInt(2, rs.getInt("num"));
+				}
+				
+				pstmt.setString(1,name);
+				pstmt.setBoolean(3, true);
 				pstmt.executeUpdate();
+				//studydb num userdb id
+				
 				
 
 				

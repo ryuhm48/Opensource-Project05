@@ -189,7 +189,7 @@ public class ContentAction implements CommandAction {
 		} else if (kind == 4) {
 			return "replyadd.do";
 		} else {
-			return "comparemember.do?administor=${study.administor}&studynum=${study.num}";
+			return "comparemember.do";
 		}
 	}
 
