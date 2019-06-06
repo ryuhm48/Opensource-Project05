@@ -33,16 +33,17 @@
 		</tr>
 		<tr>
 			<td>멤버</td>
-			<td style="text-align:left"><a href="content.do?num=${article.num}&kind=${1}">
+			<td style="text-align:left"><a href="studymemberlist.do?num=${study.num}">
 			보러가기</a></td>					
 		</tr>
+	
 		
 		
 	</table>
 	<div style="text-align:right">
 		<input type=button class="btn btn-danger" value="삭제하기" OnClick="window.location='delete.do?num=${study.num}&kind=${5}'">
 		<input type=button class="btn btn-warning" value="수정하기" OnClick="window.location='modifyform.do?num=${study.num}&kind=${5}'">			
-		<input type=button class="btn btn-warning" value="가입신청확인" OnClick="window.location='studyjounlist.do?num=${study.num}&usnum=${userstudy.num}'">			
+		<input type=button class="btn btn-secondary" value="가입신청확인" OnClick="window.location='studyjoinlist.do?num=${study.num}'">			
 		<input type=button class="btn btn-secondary" value="돌아가기" OnClick="window.location='list.do?kind=${5}'">
 	</div>
 	</c:forEach>		

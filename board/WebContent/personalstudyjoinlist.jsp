@@ -32,10 +32,10 @@
 				<th style="text-align: center">${userstudy.userid}</th>
 				<th style="text-align: left"><a
 					href="studyjoinaccept.do?num=${userstudy.num}&userid=${userstudy.userid }">
-						${study.name}</a></th>
+						승인</a></th>
 				<th style="text-align: left"><a
 					href="studyjoinrefuse.do?num=${userstudy.num}&userid=${userstudy.userid }">
-						${study.name}</a></th>
+						거절</a></th>
 			</tr>
 		</c:forEach>
 	</table>

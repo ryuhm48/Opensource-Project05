@@ -5,9 +5,9 @@ package com.board.action;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,20 +24,20 @@ public class ListAction implements CommandAction {
 	public String requestPro(HttpServletRequest request,
 
 			HttpServletResponse response) throws Throwable {
-
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int kind;
 		try {
 			kind = Integer.parseInt(request.getParameter("kind"));// 1= list 2= studylist
 		} catch (Exception e) {
-			kind=1;
+			kind = 1;
+		
 		}
 		String opt = request.getParameter("opt");
 		String condition = request.getParameter("condition");
-
+		System.out.println("lista2");
 		try {
 			HttpSession session = request.getSession();
 			// �α����� �Ǿ����� ������ �����˾��� �α���ȭ������ �̵�
@@ -45,8 +45,6 @@ public class ListAction implements CommandAction {
 			if (id == null) {
 				return "loginerror.jsp";
 			}
-
-			String jdbc_driver = "com.mysql.jdbc.Driver";
 			String jdbc_url = "jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC";
 
 //    		String jdbcDriver = "jdbc:mysql://127.0.0.1/jspdb";
@@ -55,20 +53,19 @@ public class ListAction implements CommandAction {
 			String dbUser = "root";
 			String dbPass = "";
 			String query = null;
-			System.out.println(condition);
-			if (kind == 1) {
+			if (kind == 1 || kind == 2 || kind == 3 || kind == 4) {
 				if (opt == null) {
-					query = "select * from board order by num";
-					
-				} else if (opt.equals("0")) {//수정
+					query = "select * from board where boardnum='" + kind + "' order by num";
+
+				} else if (opt.equals("0")) {// 수정
 					query = "select * from board where subject like '%" + condition + "%' order by num";
-				} else if (opt.equals("1")) {//수정
+				} else if (opt.equals("1")) {// 수정
 					query = "select * from board where content like '%" + condition + "%' order by num";
-				} else if (opt.equals("2")) {//수정
+				} else if (opt.equals("2")) {// 수정
 					query = "select * from board where id like '%" + condition + "%' order by num";
 				}
-			} 
-	
+			}
+
 			else {
 				if (opt == null) {
 					query = "select * from studydb order by num";
@@ -80,15 +77,15 @@ public class ListAction implements CommandAction {
 					query = "select * from studydb where inform like '%" + condition + "%' order by num";
 				}
 			}
+			
 			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
-
-			stmt = conn.createStatement();
-			rs =stmt.executeQuery(query);
+			
+			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
 			ArrayList<board> articleList = new ArrayList<board>();
 			ArrayList<study> studyList = new ArrayList<study>();
-
 			while (rs.next()) {
-				if (kind == 1) {
+				if (kind < 5) {
 					board article = new board();
 					article.setNum(rs.getInt("num"));
 					article.setSubject(rs.getString("subject"));
@@ -96,20 +93,21 @@ public class ListAction implements CommandAction {
 					article.setId(rs.getString("id"));
 					article.setBoarddate(rs.getString("boarddate"));
 					article.setScore(rs.getString("score"));
+					article.setBoardnum(rs.getInt("boardnum"));
 					articleList.add(article);
-					request.setAttribute("articleList", articleList);
+
 				} else {
 					study study = new study();
 					study.setNum(rs.getInt("num"));
 					study.setName(rs.getString("name"));
 					study.setInform(rs.getString("inform"));
 					study.setAdministor(rs.getString("administor"));
-					study.setMember(rs.getString("member"));
 					studyList.add(study);
-					request.setAttribute("studyList", studyList);
+
 				}
 			}
-
+			request.setAttribute("articleList", articleList);
+			request.setAttribute("studyList", studyList);
 		} catch (SQLException ex) {
 
 		} finally {
@@ -118,9 +116,9 @@ public class ListAction implements CommandAction {
 					rs.close();
 				} catch (SQLException ex) {
 				}
-			if (stmt != null)
+			if (pstmt != null)
 				try {
-					stmt.close();
+					pstmt.close();
 				} catch (SQLException ex) {
 				}
 
@@ -132,16 +130,13 @@ public class ListAction implements CommandAction {
 		}
 		if (kind == 1)
 			return "list.jsp";
-		else if (kind==2) {
-			return "delete.jsp";
-		}
-		else if (kind==3) {
-			return "delete.jsp";
-		}
-		else if (kind==4) {
-			return "delete.jsp";
-		}
-		else
+		else if (kind == 2) {
+			return "list.jsp";
+		} else if (kind == 3) {
+			return "list.jsp";
+		} else if (kind == 4) {
+			return "list.jsp";
+		} else
 			return "personalstudylist.jsp";
 	}
 

@@ -34,17 +34,12 @@ public class CompareMemberAction implements CommandAction {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String admin = null;
 		String id = null;
 		String administor =null;
 		//0 ºñÈ¸¿ø 1 È¸¿ø 2 °ü¸®ÀÚ
 		int membercheck = 0;
 
-		// ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-		int score = 0;
-
 		try {
-			// ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½Î»ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½Î±ï¿½ï¿½ï¿½Ã¢ È£ï¿½ï¿½
 			HttpSession session = request.getSession();
 			id = (String) session.getAttribute("id");
 			administor=laststudy.getAdministor();
@@ -54,39 +49,23 @@ public class CompareMemberAction implements CommandAction {
 				return "loginerror.jsp";
 			}
 
-			String jdbc_driver = "com.mysql.jdbc.Driver";
 			String jdbc_url = "jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC";
 
-			// String jdbcDriver = "jdbc:mysql://127.0.0.1/jspdb";
-
-			// +
-			// "useUnicode=true&characterEncoding = euc-kr";
 			String dbUser = "root";
 			String dbPass = "";
 			String query = null;
-			String query3 = null;
 			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
 
-			query = "select * from userstudydb where studynum = " + num + "and tag =" + true + ";";
+			query = "select tag from userstudydb where userid = '"+id+"' and studynum = '" + num + "'and (tag ='" + 1 + "' or tag = '"+2+"');";
 			pstmt = conn.prepareStatement(query);
 			rs = pstmt.executeQuery();
+			System.out.println("id "+id+" num: "+num );
 			while (rs.next()) {
-				if (id.equals(rs.getString("userid"))) {
-					membercheck = 1;
-					break;
-				}
+				membercheck = rs.getInt("tag");
+				System.out.println("tag "+membercheck );
+			
 			}
-			if (membercheck==1){
-				query = "select administor from studydb where administor = ? and num = ? ";
-				pstmt.setString(1, administor);
-				pstmt.setInt(2, num);
-				pstmt = conn.prepareStatement(query);
-				rs = pstmt.executeQuery();
-				
-				while(rs.next()) {
-					membercheck=2;
-				}
-			}
+		
 		} catch (
 
 		SQLException ex) {

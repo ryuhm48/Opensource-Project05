@@ -52,19 +52,19 @@ public class ModifyAction implements CommandAction {
 				String num = request.getParameter("num");
 				String subject = request.getParameter("subject");
 				String content = request.getParameter("content");
-				sql = "UPDATE board SET subject='" + subject + "' ,content='" + content + "' WHERE num=" + num;
+				sql = "UPDATE board SET subject='" + subject + "' ,content='" + content + "' WHERE num='" + num+"';";
 
 			} else if (kind == 3) {
 				String num = request.getParameter("num");
 				String subject = request.getParameter("subject");
 				String content = request.getParameter("content");
-				sql = "UPDATE board SET subject='" + subject + "' ,content='" + content + "' WHERE num=" + num;
+				sql = "UPDATE board SET subject='" + subject + "' ,content='" + content + "' WHERE num='" + num+"';";
 				//파일추가
 			} else {
 				String num = request.getParameter("num");
 				String inform = request.getParameter("inform");
 				String name = request.getParameter("name");
-				sql = "UPDATE studydb SET name='" + name + "' ,inform='" + inform + "' WHERE num=" + num;
+				sql = "UPDATE studydb SET name='" + name + "' ,inform='" + inform + "' WHERE num='" + num+"';";
 			}
 			stmt.executeUpdate(sql);
 
@@ -89,13 +89,13 @@ public class ModifyAction implements CommandAction {
 		if (kind == 1)
 			return "content.do?&kind=${1}";
 		else if(kind==2)
-			return "content.do?&kind=${1}";
-		else if(kind==3)
-			return "content.do?&kind=${1}";
-		else if(kind==4)
-			return "content.do?&kind=${1}";
-		else
 			return "content.do?&kind=${2}";
+		else if(kind==3)
+			return "content.do?&kind=${3}";
+		else if(kind==4)
+			return "content.do?&kind=${4}";
+		else
+			return "content.do?&kind=${5}";
 	}
 
 }

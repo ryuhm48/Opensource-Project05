@@ -30,7 +30,7 @@ public class board {
 	
 	public String study;
 	
-	public int boardnum;
+	private int boardnum;
 	
 	public String getOpt() {
 		return opt;

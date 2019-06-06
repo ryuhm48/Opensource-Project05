@@ -5,20 +5,21 @@ function writeCheck()
   {
    var form = document.writeform;
    
-  if( !form.subject.value )
+  if( !form.name.value )
    {
-    alert( "제목을 적어주세요" );
-    form.subject.focus();
+    alert( "스터디명을 적어주세요" );
+    
+    form.name.focus();
     return;
    }
  
-  if( !form.content.value )
+  if( !form.inform.value )
    {
-    alert( "내용을 적어주세요" );
-    form.content.focus();
+    alert( "소개를 적어주세요" );
+    form.inform.focus();
     return;
    }  
- 
+ 	alert(form.name.value+form.inform.value);
   form.submit();
   }
  </script>
@@ -35,7 +36,7 @@ function writeCheck()
 		사용자ID : ${id} <input type=button class="btn btn-info" value="로그아웃" OnClick="window.location='logout.do'">
 	</div>
 	<form id="inform" action ="/board/write.do" method="post">
-		<input type="hidden" name="kind" value=5>
+		<input type="hidden" name="kind" value="${5}">
 		<table style="text-align:center" class="table table-striped table-bordered table-hover">
 			<caption style="text-align:center">게시판 작성</caption>
 			<tr >
@@ -43,12 +44,8 @@ function writeCheck()
 				<th style="text-align:left"><input type="text" name="name"></th>
 			</tr>
 			<tr>
-				<th>작성자</th>
-				<th style="text-align:left">${id} </th>
-			</tr>
-			<tr>
 				<th>관리자</th>
-				<th style="text-align:left"><input type="text" name="administor"></th>
+				<th style="text-align:left">${id} </th>
 			</tr>
 			<tr>	
 				<th>내용</th>

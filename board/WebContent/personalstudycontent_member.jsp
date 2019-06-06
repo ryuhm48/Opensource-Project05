@@ -33,7 +33,7 @@
 		</tr>
 		<tr>
 			<td>멤버</td>
-			<td style="text-align:left"><a href="content.do?num=${article.num}&kind=${1}">
+			<td style="text-align:left"><a href="studymemberlist.do?num=${study.num}">
 			보러가기</a></td>					
 		</tr>
 		

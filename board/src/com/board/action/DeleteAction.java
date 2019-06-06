@@ -20,8 +20,6 @@ public class DeleteAction implements CommandAction {
 
 			HttpServletResponse response) throws Throwable {
 
-		request.setCharacterEncoding("euc-kr");
-		String jdbc_driver = "com.mysql.jdbc.Driver";
 		String jdbc_url = "jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC";
 
 		Class.forName("com.mysql.jdbc.Driver");
@@ -47,7 +45,7 @@ public class DeleteAction implements CommandAction {
 			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
 			stmt = conn.createStatement();
 
-			if (kind != 5) {
+			if (kind < 5) {
 				String sql = "DELETE FROM board WHERE num=" + num;
 				stmt.executeUpdate(sql);
 			} 
@@ -73,17 +71,9 @@ public class DeleteAction implements CommandAction {
 				} catch (SQLException ex) {
 				}
 		}
-		if(kind==1)
+		if(kind<5)
 			return "delete.jsp";
-		else if (kind==2) {
-			return "delete.jsp";
-		}
-		else if (kind==3) {
-			return "delete.jsp";
-		}
-		else if (kind==4) {
-			return "delete.jsp";
-		}
+		
 		
 		else
 			return "personalstudydelete.jsp";

@@ -21,7 +21,6 @@ public class WriteAction implements CommandAction {
 	public String requestPro(HttpServletRequest request,
 
 			HttpServletResponse response) throws Throwable {
-		request.setCharacterEncoding("euc-kr");
 		// 제목과 내용을 입력 받아 변수에 저장
 		String subject = request.getParameter("subject");
 		String content = request.getParameter("content");
@@ -29,7 +28,7 @@ public class WriteAction implements CommandAction {
 		
 		String name = request.getParameter("name");
 		String inform = request.getParameter("inform");
-		String administor = request.getParameter("administor");
+		String administor = null;
 		
 		
 		int kind;
@@ -38,29 +37,26 @@ public class WriteAction implements CommandAction {
 		} catch (Exception e) {
 			kind = 1;
 		}
-		String query;
 		String id = null;
 		String jdbc_driver = "com.mysql.jdbc.Driver";
 		String jdbc_url = "jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC";
-		int num = 0;
+	
 		// Class.forName("com.mysql.jdbc.Driver");
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
 		ResultSet rs = null;
 		try {
 			HttpSession session = request.getSession();
 			// 세션을 읽어 로그인 상태가 아니면 로그인 창으로 이동
 			id = (String) session.getAttribute("id");
-			//int boardnum = (int) session.getAttribute("boardnum");
+			administor=id;
 			if (id == null) {
 				return "loginerror.jsp";
 			}
 			Class.forName(jdbc_driver);
-			// String jdbcDriver = "jdbc:mysql://127.0.0.1/jspdb";
-			// +
-			// "useUnicode=true&characterEncoding = euc-kr";
 			String dbUser = "root";
 			String dbPass = "";
 
@@ -93,27 +89,25 @@ public class WriteAction implements CommandAction {
 				pstmt.executeUpdate();
 			}
 			else {
-				pstmt = conn.prepareStatement("insert into studydb values(NULL,?,?,?,NULL)");
+				pstmt = conn.prepareStatement("insert into studydb values(NULL,?,?,?)");
 				pstmt.setString(1, name);
 				pstmt.setString(2, inform);
 				pstmt.setString(3, administor);
 				// 쿼리 실행
 				pstmt.executeUpdate();
-				System.out.println("userstudinsert1");
-				String query2="select* from studydb where name = '" + name + "' and inform = '" + inform + "'administor = '"+administor+"';";
-				
+				String query2="select * from studydb where name = '" + name + "' and inform = '" + inform + "'and administor = '"+administor+"';";
+				pstmt2 = conn.prepareStatement(query2);
+				rs=pstmt2.executeQuery();
 
-				pstmt = conn.prepareStatement(query2);
-				rs=pstmt.executeQuery();
-				System.out.println("userstudinsert2");
-				pstmt = conn.prepareStatement("insert into userstudydb values(NULL,?,?,?)");
+				pstmt3 = conn.prepareStatement("insert into userstudydb values(NULL,?,?,?)");
 				while(rs.next()) {
-					pstmt.setInt(2, rs.getInt("num"));
+					
+					pstmt3.setInt(2, rs.getInt("num"));
+					
 				}
-				
-				pstmt.setString(1,name);
-				pstmt.setBoolean(3, true);
-				pstmt.executeUpdate();
+				pstmt3.setString(1,id);
+				pstmt3.setInt(3, 2);
+				pstmt3.executeUpdate();
 				//studydb num userdb id
 				
 				

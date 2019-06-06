@@ -33,21 +33,14 @@ public class StudyJoinAcceptAction implements CommandAction {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		String admin = null;
 		String id = null;
-
-		// ��ȸ�� ������ ���� ���� ����
-		int score = 0;
-
 		try {
-			// ���� Ȯ���� �α��λ��°� �ƴϸ� �α���â ȣ��
 			HttpSession session = request.getSession();
 			id = (String) session.getAttribute("id");
 			if (id == null) {
 				return "loginerror.jsp";
 			}
 
-			String jdbc_driver = "com.mysql.jdbc.Driver";
 			String jdbc_url = "jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC";
 
 			// String jdbcDriver = "jdbc:mysql://127.0.0.1/jspdb";
@@ -57,10 +50,9 @@ public class StudyJoinAcceptAction implements CommandAction {
 			String dbUser = "root";
 			String dbPass = "";
 			String query = null;
-			String query3 = null;
 			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
 			 
-			query = "UPDATE userstudydb SET tag='" + true + "'WHERE num=" + num;
+			query = "UPDATE userstudydb SET tag='" + 1 + "'WHERE num=" + num;
 			stmt = conn.createStatement();
 			stmt.executeQuery(query);
 

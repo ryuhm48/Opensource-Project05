@@ -23,19 +23,11 @@
 		<caption style="text-align: center">스터디멤버</caption>
 		<tr>
 			<th style="text-align: center">유저 ID</th>
-			<th style="text-align: center">승인</th>
-			<th style="text-align: center">거부</th>
 		</tr>
 
 		<c:forEach items="${userstudyList}" var="userstudy">
 			<tr>
 				<th style="text-align: center">${userstudy.userid}</th>
-				<th style="text-align: left"><a
-					href="studyjoinaccept.do?num=${userstudy.num}&userid=${userstudy.userid }">
-						${study.name}</a></th>
-				<th style="text-align: left"><a
-					href="studyjoinrefuse.do?num=${userstudy.num}&userid=${userstudy.userid }">
-						${study.name}</a></th>
 			</tr>
 		</c:forEach>
 	</table>

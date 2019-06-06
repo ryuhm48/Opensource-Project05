@@ -21,7 +21,6 @@ public class LoginAction implements CommandAction{
 			HttpServletResponse response) throws Throwable {
 		request.setCharacterEncoding("euc-kr");
 		
-		//占쌉력뱄옙占쏙옙 id占쏙옙 pw占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 		String id = request.getParameter("id");
     	String password = request.getParameter("password");    	
     	String jdbc_driver = "com.mysql.jdbc.Driver";
@@ -42,34 +41,26 @@ public class LoginAction implements CommandAction{
 			String dbUser = "root";
 			String dbPass = "";
     		
-			//占쏙옙占쏙옙占싶븝옙占싱쏙옙 占쏙옙占쏙옙
 			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);			
 			stmt = conn.createStatement();
 		
-			//id占쏙옙 pw占쏙옙 占승댐옙 db 占싯삼옙 占쏙옙占쏙옙 占쏙옙占쏙옙
 			String query = "select * from userdb where id = '"+id+"' and password = '"+password+"';";					
-			//占쏙옙占쏙옙 占쏙옙占쏙옙占싹울옙 占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙			
 			rs = stmt.executeQuery(query);
 			
-			//占싸깍옙占쏙옙 占쏙옙占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
 			Boolean isLogin = false;
 			
-			//占쏙옙占� 占싯삼옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 true
 			while(rs.next()){
 				isLogin = true;
 			}			
-			//占쏙옙占쏙옙占� 占싯삼옙占쏙옙 占실몌옙 占쏙옙占실울옙 id 占쌩곤옙
 			if(isLogin){				
 				session.setAttribute("id", id);
 				session.setAttribute("kind", 1);
-			//占쏙옙占� 占싯삼옙占쏙옙 占싫듸옙 占쏙옙 占쏙옙占쏙옙 占싯억옙 호占쏙옙
 			}else if(!isLogin && id != null){
 				return "loginerror2.jsp";
 			}
     	} catch(SQLException ex){
 
     	}finally{
-    		//占쌘울옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
     		if(stmt != null) try{stmt.close();} catch(SQLException ex){}
     		if(conn != null) try{conn.close();} catch(SQLException ex){}
     		if(rs != null) try{rs.close();} catch(SQLException ex){}

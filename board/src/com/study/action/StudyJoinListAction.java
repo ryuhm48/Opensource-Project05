@@ -26,45 +26,32 @@ public class StudyJoinListAction implements CommandAction {
 			HttpServletResponse response) throws Throwable {
 
 		Class.forName("com.mysql.jdbc.Driver");
-		// ��ȣ�� �Է¹޾ƿ� ������ ����
 		int num = Integer.parseInt(request.getParameter("num"));
 		System.out.println(num);
 		
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		String admin = null;
 		String id = null;
 
-		// ��ȸ�� ������ ���� ���� ����
-		int score = 0;
-
 		try {
-			// ���� Ȯ���� �α��λ��°� �ƴϸ� �α���â ȣ��
 			HttpSession session = request.getSession();
 			id = (String) session.getAttribute("id");
 			if (id == null) {
 				return "loginerror.jsp";
 			}
 
-			String jdbc_driver = "com.mysql.jdbc.Driver";
 			String jdbc_url = "jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC";
 
-			// String jdbcDriver = "jdbc:mysql://127.0.0.1/jspdb";
-
-			// +
-			// "useUnicode=true&characterEncoding = euc-kr";
 			String dbUser = "root";
 			String dbPass = "";
 			String query = null;
-			String query3 = null;
 			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
 
-			query = "select * from userstudydb where studynum = " + num + "and tag =" + false + ";";
+			query = "select * from userstudydb where studynum = '" + num + "'and tag ='" + 0 + "';";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(query);
 
-			// ��ȸ�� ����Ʈ�� �޾ƿ�
 			ArrayList<userstudy> userstudyList = new ArrayList<userstudy>();
 			while (rs.next()) {
 				userstudy userstudy = new userstudy();
@@ -74,10 +61,10 @@ public class StudyJoinListAction implements CommandAction {
 				userstudy.setTag(rs.getBoolean("tag"));
 
 				userstudyList.add(userstudy);
-				request.setAttribute("userstudyList", userstudyList);
 
 			}
 
+			request.setAttribute("userstudyList", userstudyList);
 		} catch (
 
 		SQLException ex) {

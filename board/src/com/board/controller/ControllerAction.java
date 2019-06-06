@@ -41,7 +41,7 @@ public class ControllerAction extends HttpServlet {
                 commandMap.put(command, commandInstance); 
  
             } catch (ClassNotFoundException e) {
-                
+                System.out.println("founderror");
                 continue; // error
                
                 // throw new ServletException(e);

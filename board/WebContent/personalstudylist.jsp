@@ -45,7 +45,7 @@
 					<select name="opt">
 						<option value="0">스터디명</option>
 						<option value="1">관리자</option>
-						<option value="2">작성자?</option>
+						<option value="2">소개</option>
 					</select>
 					<input type="text" size="20" name="condition"/>
 					<input class="btn btn-secondary" type="submit" value="검색"/>

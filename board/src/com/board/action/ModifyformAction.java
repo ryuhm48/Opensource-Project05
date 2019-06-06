@@ -25,8 +25,6 @@ public class ModifyformAction implements CommandAction {
 			HttpServletResponse response) throws Throwable {
 
 		Class.forName("com.mysql.jdbc.Driver");
-		// String url = "jdbc:mysql://127.0.0.1/jspdb";
-		String jdbc_driver = "com.mysql.jdbc.Driver";
 		String jdbc_url = "jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC";
 
 		String dbUser = "root";
@@ -47,13 +45,11 @@ public class ModifyformAction implements CommandAction {
 			if (session.getAttribute("id") == null) {
 				return "loginerror.jsp";
 			}
-
-			request.setCharacterEncoding("euc-kr");
 			String num = request.getParameter("num");
 
 			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
 			String query = null;
-			if (kind == 1) {
+			if (kind <5) {
 				query = "select * from board where num = " + num;
 
 			} else {
@@ -75,6 +71,7 @@ public class ModifyformAction implements CommandAction {
 					article.setId(rs.getString("id"));
 					article.setBoarddate(rs.getString("boarddate"));
 					article.setEmail(rs.getString("email"));
+					article.setBoardnum(rs.getInt("boardnum"));
 					articleList.add(article);
 					request.setAttribute("articleList", articleList);
 				} else {
@@ -83,7 +80,6 @@ public class ModifyformAction implements CommandAction {
 					study.setName(rs.getString("name"));
 					study.setInform(rs.getString("inform"));
 					study.setAdministor(rs.getString("administor"));
-					study.setMember(rs.getString("member"));
 					studyList.add(study);
 					request.setAttribute("studyList", studyList);
 				}
@@ -115,11 +111,11 @@ public class ModifyformAction implements CommandAction {
 		if (kind == 1)
 			return "modifyform.jsp";
 		else if(kind==2)
-			return "content.do?&kind=${1}";
+			return "modifyform.jsp";
 		else if(kind==3)
-			return "content.do?&kind=${1}";
+			return "modifyform.jsp";
 		else if(kind==4)
-			return "content.do?&kind=${1}";
+			return "modifyform.jsp";
 		else
 			return "personalstudymodifyform.jsp";
 

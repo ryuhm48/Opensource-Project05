@@ -37,7 +37,6 @@ public class ContentAction implements CommandAction {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		String admin = null;
 		String id = null;
 
 		// ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
@@ -51,7 +50,6 @@ public class ContentAction implements CommandAction {
 				return "loginerror.jsp";
 			}
 
-			String jdbc_driver = "com.mysql.jdbc.Driver";
 			String jdbc_url = "jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC";
 
 			// String jdbcDriver = "jdbc:mysql://127.0.0.1/jspdb";
@@ -61,10 +59,9 @@ public class ContentAction implements CommandAction {
 			String dbUser = "root";
 			String dbPass = "";
 			String query = null;
-			String query3 = null;
 			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
-			if (kind == 1) {
-				query = "select * from board where num = " + num;
+			if (kind == 1 || kind == 2 || kind == 3 | kind == 4) {
+				query = "select * from board where num = '" + num;
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(query);
 			} else {
@@ -93,9 +90,10 @@ public class ContentAction implements CommandAction {
 					score = Integer.parseInt(rs.getString("score")) + 1;
 					article.setScore(String.valueOf(score));
 					article.setEmail(rs.getString("email"));
+					article.setBoardnum(rs.getInt("boardnum"));
 					articleList.add(article);
 					request.setAttribute("articleList", articleList);
-					String query2 = "UPDATE board SET score='" + score + "' WHERE num=" + num;
+					String query2 = "UPDATE board SET score='" + score + "' WHERE num='" + num + "';";
 					stmt.executeUpdate(query2);
 
 				} else if (kind == 2) {
@@ -110,7 +108,7 @@ public class ContentAction implements CommandAction {
 					article.setEmail(rs.getString("email"));
 					article.setBoardnum(rs.getInt("boardnum"));
 					articleList.add(article);
-					String query2 = "UPDATE board SET score='" + score + "' WHERE num=" + num;
+					String query2 = "UPDATE board SET score='" + score + "' WHERE num='" + num + "';";
 					stmt.executeUpdate(query2);
 				} else if (kind == 3) {// ÀÚ·á°Ô½ÃÆÇ ÆÄÀÏÃß°¡
 					board article = new board();
@@ -126,7 +124,7 @@ public class ContentAction implements CommandAction {
 					articleList.add(article);
 					request.setAttribute("articleList", articleList);
 					request.setAttribute("articlenum", new Integer(num));
-					String query2 = "UPDATE board SET score='" + score + "' WHERE num=" + num;
+					String query2 = "UPDATE board SET score='" + score + "' WHERE num='" + num + "';";
 					stmt.executeUpdate(query2);
 				} else if (kind == 4) {
 					board article = new board();
@@ -142,7 +140,7 @@ public class ContentAction implements CommandAction {
 					articleList.add(article);
 					request.setAttribute("articleList", articleList);
 					request.setAttribute("articlenum", new Integer(num));
-					String query2 = "UPDATE board SET score='" + score + "' WHERE num=" + num;
+					String query2 = "UPDATE board SET score='" + score + "' WHERE num='" + num + "';";
 					stmt.executeUpdate(query2);
 				} else {
 
@@ -156,7 +154,6 @@ public class ContentAction implements CommandAction {
 					request.setAttribute("articlenum", new Integer(num));
 				}
 			}
-			
 
 		} catch (
 

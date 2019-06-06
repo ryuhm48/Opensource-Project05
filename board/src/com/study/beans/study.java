@@ -14,9 +14,6 @@ public class study {
 	//스터디 관리자
 	public String administor;
 
-	//스터디 구성원
-	public String member;
-
 	
 	public int getNum() {
 		return num;
@@ -43,13 +40,5 @@ public class study {
 	public void setAdministor(String administor) {
 		this.administor = administor;
 	}
-	public String getMember() {
-		return member;
-	}
-	public void setMember(String member) {
-		this.member = member;
-	}
-
-	
 	
 }
