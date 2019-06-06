@@ -1,0 +1,30 @@
+import java.sql.Timestamp;
+public class ProblemDTO {
+	
+	private int studyNum;
+	private int problemNum1;//전체 문항 번호. priority key
+	private int problemNum2;//스터디 내부에서의 번호.
+	private String name;//문제 제목
+	private String language;//관련 컴퓨터 언어
+	private String writerName;//작성자 이름
+	private String date;//기록 일자
+	private int commentNum;//답글 수
+	
+	public ProblemDTO()
+	{
+		super();
+	}
+	
+	public ProblemDTO(int studyNum, int problemNum1, int problemNum2, String name, String language, String writerName, String date)
+	{
+		this.commentNum = 0;
+		this.studyNum = studyNum;
+		this.problemNum1 = problemNum1;
+		this.problemNum2 = problemNum2;
+		this.name = name;
+		this.language = language;
+		this.writerName = writerName;
+		this.date = date;
+	}
+	
+}

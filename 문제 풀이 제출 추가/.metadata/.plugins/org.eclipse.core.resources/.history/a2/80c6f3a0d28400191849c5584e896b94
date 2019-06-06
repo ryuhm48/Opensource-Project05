@@ -1,0 +1,18 @@
+package Problem;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ProblemWriteCommand implements ProblemCommand {
+
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		int studyNum = request.getParameter("studyNum");
+		
+		ProblemDAO dao = new ProblemDAO();
+		
+		dao.write(studyNum, problemNum2, problemName, problemLanguage, )
+	}
+
+}
