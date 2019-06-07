@@ -56,9 +56,9 @@ pageEncoding="UTF-8"%>
 			document.write(""+ a);
 		</script>
 	</h2></br>
-	<div><pre><%= problemContent %></pre></div>
-	<div><pre><%= problemInputEx %></pre></div>
-	<div><pre><%= problemOutputEx %></div>
+	</br><%= problemContent %></br>
+	예제 입력<div><%= problemInputEx %></div>
+	예제 출력<div><%= problemOutputEx %></div>
 	<form action = "Delete.do" method = "post"><!-- 문제를 삭제하기 위한 form -->
 		<input type = "text" name = "problemNum1" id = "problemNum1" style = "display : none" value = "<%= problemNum %>">
 		<!-- 유저 정보를 받는 보이지 않는 input태그를 생성한다. -->
@@ -67,6 +67,10 @@ pageEncoding="UTF-8"%>
 	<form action = "Answer.do" method = "post">
 		<input type = "text" name = "problemNum" id = "problemNum" style = "display : none" value = "<%= problemNum %>">
 		<input type = "submit" value = "문제 풀기">
+	</form>
+	<form action = "AnswerList.do" method = "post">
+		<input type = "text" name = "problemNum" id = "problemNum" style = "display : none" value = "<%= problemNum %>">
+		<input type = "submit" value = "제출 답안 목록 보기">
 	</form>
 	<form action = "list.do" method = "post">
 		<input type = "text" name = "studyNum" id = "studyNum" style = "display : none" value = "<%= studyNum %>">

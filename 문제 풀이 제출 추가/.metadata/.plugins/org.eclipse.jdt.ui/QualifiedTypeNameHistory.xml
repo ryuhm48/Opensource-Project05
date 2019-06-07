@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.util.Date"/>
-<fullyQualifiedTypeName name="Problem.ProblemDAO"/>
-<fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="Problem.ProblemWriteCommand"/>
 <fullyQualifiedTypeName name="Problem.ProblemWriteUICommand"/>
+<fullyQualifiedTypeName name="Problem.InsertAnswerCommand"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.util.Enumeration"/>
+<fullyQualifiedTypeName name="Problem.ProblemDAO"/>
 </qualifiedTypeNameHistroy>

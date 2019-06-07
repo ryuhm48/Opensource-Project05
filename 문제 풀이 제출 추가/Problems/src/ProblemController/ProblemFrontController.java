@@ -1,6 +1,8 @@
 package ProblemController;
 
 import java.io.IOException;
+import java.util.Enumeration;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +17,7 @@ import Problem.ProblemWriteUICommand;
 import Problem.ShowProblemCommand;
 import Problem.AnswerListCommand;
 import Problem.AnswerSubmitCommand;
+import Problem.InsertAnswerCommand;
 
 @WebServlet("*.do")
 public class ProblemFrontController extends HttpServlet {
@@ -65,7 +68,18 @@ public class ProblemFrontController extends HttpServlet {
 		}
 		
 		if(c.equals("/checkAnswer.do")) {
+			command = new InsertAnswerCommand();
+			command.execute(request, response);
+			nextPage = "AnswerList.do";
+		}
+		
+		if(c.equals("/AnswerList.do")) {
+		try{
 			command = new AnswerListCommand();
+		}catch(Exception e)
+		{
+			System.out.println(e);
+		}
 			command.execute(request, response);
 			nextPage = "AnswerList.jsp";
 		}

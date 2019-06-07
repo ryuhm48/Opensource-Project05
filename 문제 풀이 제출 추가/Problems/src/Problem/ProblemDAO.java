@@ -27,28 +27,61 @@ public class ProblemDAO {
 	public void insert(ProblemDTO problemDTO) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int count = 0;
 		try {
 			Class.forName(jdbc_driver);
 			conn = DriverManager.getConnection(jdbc_url, "root", "adg!35adg!");
-			sql = "insert into Problems(studyNum, problemNum1, problemNum2, problemName, problemLanguage, problemDate, writerName, problemContent) values(?,?,?,?,?,?,?,?)";
+			sql = "select * from problemscount";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				count = rs.getInt("count");
+		}catch(Exception e) {
+				System.out.println(e);
+		}try {
+			if(rs != null)
+				rs.close();
+		}catch(Exception e) {
+			System.out.println(e);
+		}try {
+			sql = "insert into Problems(studyNum, problemNum1, problemNum2, problemName, problemLanguage, problemDate, writerName, problemContent, problemInput, problemInputEx, problemOutput, problemOutputEx) values(?,?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, problemDTO.getStudyNum());
-			pstmt.setInt(2, problemDTO.getProblemNum1());
 			pstmt.setInt(3, problemDTO.getProblemNum2());
 			pstmt.setString(4, problemDTO.getProblemName());
 			pstmt.setString(5, problemDTO.getProblemLanguage());
 			pstmt.setDate(6, problemDTO.getProblemDate());
 			pstmt.setString(7, problemDTO.getWriterName());
 			pstmt.setString(8, problemDTO.getProblemContent());
+			pstmt.setString(9, problemDTO.getProblemInput());
+			pstmt.setString(10, problemDTO.getProblemInputEx());
+			pstmt.setString(11, problemDTO.getProblemOutput());
+			pstmt.setString(12, problemDTO.getProblemOutputEx());
+			count++;
+			pstmt.setInt(2, count);
 			pstmt.executeUpdate();
+		}catch(Exception e) {
+			System.out.println(e);
+		}try {
+			if(pstmt != null)
+				pstmt.close();
+		}catch(Exception e) {
+			System.out.println(e);
+		}try {
+			sql = "update problemsCount set count = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			pstmt.executeUpdate();			
 		}catch(Exception e) {
 			System.out.println(e);
 		}finally {
 			try {
+				if(rs != null) rs.close();
 				if(pstmt != null) pstmt.close();
 				if(conn != null) conn.close();
 			} catch (Exception e2) {
-				e2.getStackTrace();
+				System.out.println(e2);
 			}
 		}
 	}
@@ -93,7 +126,7 @@ public class ProblemDAO {
 			while(rs.next());
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+			System.out.println(e);
 		}finally {
 			try {
 				if(rs != null)
@@ -103,7 +136,7 @@ public class ProblemDAO {
 				if(conn != null)
 					conn.close(); 
 			}catch(SQLException e){
-				e.printStackTrace();
+				System.out.println(e);
 			}
 		}
 		
@@ -114,11 +147,9 @@ public class ProblemDAO {
 	{
 		java.util.Date UDate = new java.util.Date();
 		Date problemDate = new Date(UDate.getTime());
-		int problemNum1 = getTableSize() + 1;
 		ProblemDTO p = new ProblemDTO();
 		p.setProblemDate(problemDate);
 		p.setStudyNum(studyNum);
-		p.setProblemNum1(problemNum1);
 		p.setProblemNum2(problemNum2+1);
 		p.setProblemLanguage(problemLanguage);
 		p.setProblemName(problemName);
@@ -131,36 +162,6 @@ public class ProblemDAO {
 		insert(p);
 	}
 	
-	public int getTableSize() {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ResultSetMetaData rd = null;
-		int size = 0;
-		try {
-			Class.forName(jdbc_driver);
-			conn = DriverManager.getConnection(jdbc_url, "root", "adg!35adg!");
-			sql = "select count(*) from Problems";
-			rs = pstmt.executeQuery(sql);
-			rd = rs.getMetaData();
-			size = rd.getColumnCount();
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally {
-			try {
-				if(rs != null)
-					rs.close();
-				if(pstmt != null)
-					pstmt.close();
-				if(conn != null)
-					conn.close(); 
-			}catch(SQLException e){
-				e.printStackTrace();
-			}
-		}
-		return size;
-	}
-	
 	public ProblemDTO getProblem(int problemNum) {
 		ProblemDTO p = new ProblemDTO();
 		Connection conn = null;
@@ -170,7 +171,7 @@ public class ProblemDAO {
 		try {
 			Class.forName(jdbc_driver);
 			conn = DriverManager.getConnection(jdbc_url, "root", "adg!35adg!");
-			sql = "select * from Problems where problemNum1 = ?";
+			sql = "select * from problems where problemNum1 = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, problemNum);
 			rs = pstmt.executeQuery();
@@ -187,7 +188,7 @@ public class ProblemDAO {
 			prodto.setProblemInput(problemInput);
 			prodto.setProblemOutput(problemOutput);
 		}catch(Exception e){
-			e.printStackTrace();
+			System.out.println(e);
 		}finally {
 			try {
 				if(rs != null)
@@ -241,7 +242,7 @@ public class ProblemDAO {
 				prodto.setProblemOutputEx(problemOutputEx);
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			System.out.println(e);
 		}finally {
 			try {
 				if(rs != null)
@@ -251,7 +252,7 @@ public class ProblemDAO {
 				if(conn != null)
 					conn.close(); 
 			}catch(SQLException e){
-				e.printStackTrace();
+				System.out.println(e);
 			}
 		}
 		return prodto;
@@ -268,13 +269,14 @@ public class ProblemDAO {
 		try {
 			Class.forName(jdbc_driver);
 			conn = DriverManager.getConnection(jdbc_url, "root", "adg!35adg!");
-			sql = "select studyNum from Problems where problemNum1 = ?";
+			sql = "select studyNum from problems where problemNum1 = ?";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, problemNum);
-			rs = pstmt.executeQuery(sql);
+			rs = pstmt.executeQuery();
 			if(rs.next())
 				studyNum = rs.getInt("studyNum");
 		}catch(Exception e){
-			e.printStackTrace();
+			System.out.println(e);
 		}finally {
 			try {
 				if(rs != null)
@@ -284,7 +286,7 @@ public class ProblemDAO {
 				if(conn != null)
 					conn.close(); 
 			}catch(SQLException e){
-				e.printStackTrace();
+				System.out.println(e);
 			}
 		}
 		return studyNum;
@@ -299,6 +301,7 @@ public class ProblemDAO {
 			Class.forName(jdbc_driver);
 			conn = DriverManager.getConnection(jdbc_url, "root", "adg!35adg!");
 			sql = "select * from Problems where problemNum1 = ?";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, problemNum);
 			rs = pstmt.executeQuery();
 			int studyNum = 0;

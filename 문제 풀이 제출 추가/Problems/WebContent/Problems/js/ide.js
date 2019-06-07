@@ -3,11 +3,9 @@ var SUBMISSION_CHECK_TIMEOUT = 10; // in ms
 var WAIT = localStorageGetItem("wait") == "true";
 
 var sourceEditor, inputEditor, outputEditor;
-var $insertTemplateBtn, $selectLanguageBtn, $runBtn, $saveBtn, $vimCheckBox, $output;
+var $insertTemplateBtn, $selectLanguageBtn, $runBtn, $saveBtn, $vimCheckBox;
 var $statusLine, $emptyIndicator;
 var timeStart, timeEnd;
-
-$output = $("#sourceOutput");
 
 function encode(str) {
   return btoa(unescape(encodeURIComponent(str)));
@@ -27,10 +25,15 @@ function getIdFromURI() {
 }
 
 function updateEmptyIndicator() {
+  if (outputEditor.getValue() == "") {
+    $emptyIndicator.html("empty");
+  } else {
     $emptyIndicator.html("");
+  }
 }
 
 function handleError(jqXHR, textStatus, errorThrown) {
+  outputEditor.setValue(JSON.stringify(jqXHR, null, 4));
   $statusLine.html(`${jqXHR.statusText} (${jqXHR.status})`);
 }
 
@@ -62,6 +65,15 @@ function handleResult(data) {
     stdout += (stdout == "" ? "" : "\n") + stderr;
   }
 
+  outputEditor.setValue(stdout);
+  var outputContent = outputEditor.getValue();
+  document.getElementById("sourceOutput").value = outputContent;
+  var sourceContent = sourceEditor.getValue();
+  document.getElementById("source").value = sourceContent;
+  var sourceLanguage = document.getElementById("selectLanguageBtn").value;
+  var AnswerLanguage = document.getElementById("answerLanguage");
+  AnswerLanguage.value = sourceLanguage;
+  AnswerLanguage.parentElement.submit();
   updateEmptyIndicator();
   $runBtn.button("reset");
 }
@@ -74,9 +86,6 @@ function toggleVim() {
 }
 
 function run() {
-	var Input = document.getElementById("input");
-	if(Input.value)
-		inputEditor.setValue(Input.value);
   if (sourceEditor.getValue().trim() == "") {
     alert("Source code can't be empty.");
     return;
@@ -86,7 +95,6 @@ function run() {
 
   var sourceValue = encode(sourceEditor.getValue());
   var inputValue = encode(inputEditor.getValue());
-  
   var languageId = $selectLanguageBtn.val();
   var data = {
     source_code: sourceValue,
@@ -111,10 +119,6 @@ function run() {
     },
     error: handleRunError
   });
-  var Output = document.getElementById("sourceOutput");
-  document.getElementById("problemNum1").value = document.getElementById("problemNum").value;
-  Output.value = outputEditor.innerText;
-  
 }
 
 function fetchSubmission(submission_token) {
@@ -131,7 +135,6 @@ function fetchSubmission(submission_token) {
     },
     error: handleRunError
   });
-  
 }
 
 function setEditorMode() {
@@ -145,7 +148,9 @@ function focusAndSetCursorAtTheEnd() {
 
 function initializeElements() {
   $selectLanguageBtn = $("#selectLanguageBtn");
+  $insertTemplateBtn = $("#insertTemplateBtn");
   $runBtn = $("#runBtn");
+  $saveBtn = $("#saveBtn");
   $vimCheckBox = $("#vimCheckBox");
   $emptyIndicator = $("#emptyIndicator");
   $statusLine = $("#statusLine");
@@ -192,14 +197,14 @@ $(document).ready(function() {
   });
 
   inputEditor = CodeMirror(document.getElementById("inputEditor"), {
-	    lineNumbers: true,
-	    mode: "plain"
-	  });
+    lineNumbers: true,
+    mode: "plain"
+  });
   outputEditor = CodeMirror(document.getElementById("outputEditor"), {
-	    readOnly: true,
-	    mode: "plain"
-	  });
-  
+    readOnly: true,
+    mode: "plain"
+  });
+
   $vimCheckBox.prop("checked", localStorageGetItem("keyMap") == "vim").change();
 
   if (BASE_URL != "https://api.judge0.com") {
@@ -235,15 +240,22 @@ $(document).ready(function() {
       WAIT=!WAIT;
       localStorageSetItem("wait", WAIT);
       alert(`Submission wait is ${WAIT ? "ON. Enjoy" : "OFF"}.`);
+    } else if (event.ctrlKey && keyCode == 83) { // Ctrl+S
+      e.preventDefault();
+      save();
     }
   });
 
   $runBtn.click(function(e) {
+	var inputContent = $("#input").val();
+	inputEditor.setValue(inputContent);
     run();
   });
+  
   $vimCheckBox.change(function() {
     toggleVim();
   });
+
 });
 
 var fileNames = {

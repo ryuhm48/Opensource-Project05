@@ -1,0 +1,173 @@
+package Problem;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import Problem.ProblemDAO;
+import Problem.AnswerDAO;
+import Problem.AnswerDTO;
+
+
+public class InsertAnswerCommand implements ProblemCommand {
+
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		String problemNum1 = request.getParameter("problemNum1");
+		int problemNum = Integer.parseInt(problemNum1);
+		String answerCode = request.getParameter("source");
+		String ansOutput = request.getParameter("sourceOutput");
+		int language = Integer.parseInt(request.getParameter("answerLanguage"));
+		String answerLanguage = null;
+		String writerName = request.getParameter("writerName");
+		Boolean problemCorrection = false;
+		AnswerDAO ansdao = new AnswerDAO();		
+		AnswerDTO answer = new AnswerDTO();
+		ProblemDAO prodao = new ProblemDAO();
+		ProblemDTO problem = new ProblemDTO();
+		problem = prodao.getProblemDTO(problemNum);
+		switch(language)
+		{
+		case 1:
+			answerLanguage = "Bash (4.4)";
+			break;
+		case 2:
+			answerLanguage = "Bash (4.0)";
+			break;
+		case 3:
+			answerLanguage = "Basic (fbc 1.05.0)";
+			break;
+		case 4:
+			answerLanguage = "C (gcc 7.2.0)";
+			break;
+		case 5:
+			answerLanguage = "C (gcc 6.4.0)";
+			break;
+		case 6:
+			answerLanguage = "";
+			break;
+		case 7:
+			answerLanguage = "";
+			break;
+		case 8:
+			answerLanguage = "";
+			break;
+		case 9:
+			answerLanguage = "";
+			break;
+		case 10:
+			answerLanguage = "";
+			break;
+		case 11:
+			answerLanguage = "";
+			break;
+		case 12:
+			answerLanguage = "";
+			break;
+		case 13:
+			answerLanguage = "";
+			break;
+		case 14:
+			answerLanguage = "";
+			break;
+		case 15:
+			answerLanguage = "";
+			break;
+		case 16:
+			answerLanguage = "";
+			break;
+		case 17:
+			answerLanguage = "";
+			break;
+		case 18:
+			answerLanguage = "";
+			break;
+		case 19:
+			answerLanguage = "";
+			break;
+		case 20:
+			answerLanguage = "";
+			break;
+		case 21:
+			answerLanguage = "";
+			break;
+		case 22:
+			answerLanguage = "";
+			break;
+		case 23:
+			answerLanguage = "";
+			break;
+		case 24:
+			answerLanguage = "";
+			break;
+		case 25:
+			answerLanguage = "";
+			break;
+		case 26:
+			answerLanguage = "";
+			break;
+		case 27:
+			answerLanguage = "";
+			break;
+		case 28:
+			answerLanguage = "";
+			break;
+		case 29:
+			answerLanguage = "";
+			break;
+		case 30:
+			answerLanguage = "";
+			break;
+		case 31:
+			answerLanguage = "";
+			break;
+		case 32:
+			answerLanguage = "";
+			break;
+		case 33:
+			answerLanguage = "";
+			break;
+		case 34:
+			answerLanguage = "";
+			break;
+		case 35:
+			answerLanguage = "";
+			break;
+		case 36:
+			answerLanguage = "";
+			break;
+		case 37:
+			answerLanguage = "";
+			break;
+		case 38:
+			answerLanguage = "";
+			break;
+		case 39:
+			answerLanguage = "";
+			break;
+		case 40:
+			answerLanguage = "";
+			break;
+		case 41:
+			answerLanguage = "";
+			break;
+		case 42:
+			answerLanguage = "";
+			break;
+		case 43:
+			answerLanguage = "";
+			break;
+		}
+		int studyNum = problem.getStudyNum();
+		String output = problem.getProblemOutput();
+		if(output.equals(ansOutput))
+			problemCorrection = true;
+		answer.setProblemNum1(problemNum);
+		answer.setAnswerCode(answerCode);
+		answer.setAnswerLanguage(answerLanguage);
+		answer.setWriterName(writerName);
+		answer.setProblemCorrection(problemCorrection);
+		ansdao.insert(answer);
+		request.setAttribute("problemNum", problemNum);
+	}
+
+}

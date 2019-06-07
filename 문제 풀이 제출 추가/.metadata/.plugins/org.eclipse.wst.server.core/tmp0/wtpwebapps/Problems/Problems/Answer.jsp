@@ -19,6 +19,9 @@ pageEncoding="UTF-8"%>
 		input = "";
 		problemNum = -1;
 	}
+	//작성자 정보를 받는 내용 필요, 임의로 제 이름을 넣겠습니다.
+	String writerName = "김경태";
+	String problemNum1 = Integer.toString(problemNum);
 %>
 <!DOCTYPE html>
 <html>
@@ -40,36 +43,36 @@ pageEncoding="UTF-8"%>
   <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
 
   <link rel="stylesheet" href="css/codemirror.css">
-  <script src="js/codemirror.js"></script>
-  <script src="js/mode/simple.js"></script>
-  <script src="js/mode/clike.js"></script>
-  <script src="js/mode/clojure.js"></script>
-  <script src="js/mode/crystal.js"></script>
-  <script src="js/mode/elixir.js"></script>
-  <script src="js/mode/erlang.js"></script>
-  <script src="js/mode/go.js"></script>
-  <script src="js/mode/haskell.js"></script>
-  <script src="js/mode/javascript.js"></script>
-  <script src="js/mode/mllike.js"></script>
-  <script src="js/mode/octave.js"></script>
-  <script src="js/mode/pascal.js"></script>
-  <script src="js/mode/python.js"></script>
-  <script src="js/mode/ruby.js"></script>
-  <script src="js/mode/rust.js"></script>
-  <script src="js/mode/shell.js"></script>
+  <script src="js/codemirror.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/simple.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/clike.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/clojure.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/crystal.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/elixir.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/erlang.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/go.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/haskell.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/javascript.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/mllike.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/octave.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/pascal.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/python.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/ruby.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/rust.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/mode/shell.js?v=<%=System.currentTimeMillis() %>"></script>
 
   <link rel="stylesheet" href="css/addon/dialog.css">
 
-  <script src="js/addon/searchcursor.js"></script>
-  <script src="js/addon/search.js"></script>
-  <script src="js/addon/dialog.js"></script>
-  <script src="js/addon/matchbrackets.js"></script>
-  <script src="js/addon/closebrackets.js"></script>
+  <script src="js/addon/searchcursor.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/addon/search.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/addon/dialog.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/addon/matchbrackets.js?v=<%=System.currentTimeMillis() %>"></script>
+  <script src="js/addon/closebrackets.js?v=<%=System.currentTimeMillis() %>"></script>
 
-  <script src="js/keymap/vim.js"></script>
+  <script src="js/keymap/vim.js?v=<%=System.currentTimeMillis() %>"></script>
 
   <link rel="stylesheet" href="css/ide.css">
-  <script src="js/ide.js"></script>
+  <script src="js/ide.js?v=<%=System.currentTimeMillis() %>"></script>
 
   <title>Judge0 IDE</title>
 </head>
@@ -143,13 +146,12 @@ pageEncoding="UTF-8"%>
       </div>
     </div>
   </nav>
-  	<input type = "text" id = "problemNum" value = "<%= problemNum %>">
-  <form action = "checkAnswer.do" id = "checkAnswer" method = "post">
-  	<input type = "text" id = "problemNum1">
-  	<input type = "text" id = "sourceOutput">
-  	<input type = "text" id = "source">
-  	<input type = "text" id = "answerLanguage">
-  	<input type = "text" id = "writerName">
+  <form action = "checkAnswer.do" id = "checkAnswer" method = "post" style = "display : none;">
+  	<input type = "text" name = "problemNum1" id = "problemNum1" value = "<%= problemNum1 %>">
+  	<input type = "text" name = "sourceOutput" id = "sourceOutput" value = "">
+  	<input type = "text" name = "source" id = "source" value = "">
+  	<input type = "text" name = "answerLanguage" id = "answerLanguage" value = "">
+  	<input type = "text" name = "writerName" id = "writerName" value = "<%= writerName %>">
   </form>
 
   <div id="sourceEditor"></div>

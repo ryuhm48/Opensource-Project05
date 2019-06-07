@@ -1,0 +1,22 @@
+package Problem;
+
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import Problem.AnswerDAO;
+import Problem.AnswerDTO;
+
+
+public class AnswerListCommand implements ProblemCommand {
+
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		int problemNum = (int)request.getAttribute("problemNum");
+		AnswerDAO ansdao = new AnswerDAO();	
+		ArrayList<AnswerDTO> list = ansdao.answerList(problemNum);
+		request.setAttribute("list", list);
+	}
+
+}

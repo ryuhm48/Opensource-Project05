@@ -27,22 +27,53 @@ public class AnswerDAO {
 	public void insert(AnswerDTO ansDTO) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int count = 0;
 		try {
 			Class.forName(jdbc_driver);
 			conn = DriverManager.getConnection(jdbc_url, "root", "adg!35adg!");
-			sql = "insert into Problems(problemNum1, answerCode, answerLanguage, writerName, problemCorrection, answerNum) values(?,?,?,?,?,?)";
+			sql = "select * from answerscount";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				count = rs.getInt("count");
+		}catch(Exception e) {
+				System.out.println(e);
+		}try {
+			if(rs != null)
+				rs.close();
+			if(pstmt != null) pstmt.close();
+		}catch(Exception e) {
+			System.out.println(e);
+		}try {
+			Class.forName(jdbc_driver);
+			sql = "insert into answers(problemNum1, answerCode, answerLanguage, writerName, problemCorrection, answerNum) values(?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, ansDTO.getProblemNum1());
 			pstmt.setString(2, ansDTO.getAnswerCode());
 			pstmt.setString(3, ansDTO.getAnswerLanguage());
 			pstmt.setString(4, ansDTO.getWriterName());
 			pstmt.setBoolean(5, ansDTO.getProblemCorrection());
-			pstmt.setInt(6,ansDTO.getAnswerNum());
+			count++;
+			pstmt.setInt(6,count);
 			pstmt.executeUpdate();
+		}catch(Exception e) {
+			System.out.println(e);
+		}try {
+			if(pstmt != null)
+				pstmt.close();
+		}catch(Exception e) {
+			System.out.println(e);
+		}try {
+			sql = "update answersCount set count = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			pstmt.executeUpdate();			
 		}catch(Exception e) {
 			System.out.println(e);
 		}finally {
 			try {
+				if(rs != null) rs.close();
 				if(pstmt != null) pstmt.close();
 				if(conn != null) conn.close();
 			} catch (Exception e2) {
@@ -60,7 +91,7 @@ public class AnswerDAO {
 		try {
 			Class.forName(jdbc_driver);
 			conn = DriverManager.getConnection(jdbc_url, "root", "adg!35adg!");
-			sql = "select problemNum1, answerLanguage, writerName, answerCode, problemCorrection, answerNum from problems where problemNum1 = ?";
+			sql = "select problemNum1, answerLanguage, writerName, answerCode, problemCorrection, answerNum from answers where problemNum1 = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, problemNum1);
 			rs = pstmt.executeQuery();
@@ -99,37 +130,6 @@ public class AnswerDAO {
 		}
 		
 		return list;
-	}
-	
-	public int getTableSize() {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ResultSetMetaData rd = null;
-		int size = 0;
-		try {
-			Class.forName(jdbc_driver);
-			conn = DriverManager.getConnection(jdbc_url, "root", "adg!35adg!");
-			sql = "select count(*) from Answers";
-			
-			rs = pstmt.executeQuery(sql);
-			rd = rs.getMetaData();
-			size = rd.getColumnCount();
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally {
-			try {
-				if(rs != null)
-					rs.close();
-				if(pstmt != null)
-					pstmt.close();
-				if(conn != null)
-					conn.close(); 
-			}catch(SQLException e){
-				e.printStackTrace();
-			}
-		}
-		return size;
 	}
 	
 }
