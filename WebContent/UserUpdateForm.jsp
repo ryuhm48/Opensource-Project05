@@ -20,6 +20,7 @@ userId = (String) session.getAttribute("userId");
 }
 %>
 
+
 <div id ="page-wrapper">
 
 	<section id= "header">
@@ -34,6 +35,7 @@ userId = (String) session.getAttribute("userId");
 						<ul>
 							<li><a href="#">공지사항</a></li>
 							<li><a href="#">자유 게시판</a></li>
+							<li><a href="#">스터디 게시판</a></li>
 							<li><a href="#">자료실</a></li>
 						</ul>
 					</li>
@@ -83,25 +85,70 @@ userId = (String) session.getAttribute("userId");
 <section id="main">
 <div class="container">
 
+<%
+UserBean user = (UserBean) request.getAttribute("user");
+%>
+
+<section id="main">
+
+<table border="1">
+<tr>
+    <th style="text-align:center">아이디</th>
+    <th style="text-align:center">성별</th>
+    <th style="text-align:center">이름</th>
+    <th style="text-align:center">이메일</th>
+</tr>
+<c:forEach items="${userList}" var="user">
+<tr>
+	<th style="text-align:center">${user.userId}</th>
+	<th style="text-align:center">${user.gender}</th>
+	<th style="text-align:center">${user.name}</th>
+	<th style="text-align:center">${user.email}</th>
+</tr>
+</c:forEach>
+</table>
+
+<div class="container">
 <form action="userupdate.do" method="post" name="form">
 <table class="table table-striped table-bordered table-hover">
-	<caption style="text-align:center">회원정보 수정 비밀번호 확인</caption>
-	<tr>
-		<th>PW</th>
-		<th><input type="password" class="form-control" name="pwd" id="inputPassword" placeholder="Password" name="password"></th>
-	</tr>
-	<tr>
-		<th></th>
-		<th>
-			<input type="submit" class="btn btn-primary" id ="allCheck" value="확인">
-			<input type="button" class="btn btn-secondary" value="다시입력" onClick="window.location='UserUpdateForm.jsp'">
-			
-		</th>
-	</tr>
+<caption style="text-align:center">회원정보 수정 </caption>
+<tr>
+	<th>PW</th>
+	<th><input type="text" class="form-control" name="pwd" value=""></th>
+</tr>
+<tr>
+	<th>이름</th>
+	<th><input type="text" class="form-control" name="name" value=""></th>
+</tr>
+<tr>
+<td colspan="2" style="text-align: center;">
+	<div class="btn-group" data-toggle="buttons">
+		<label> 
+		<input type="radio" name="gender" value="" checked> 남
+		</label> 
+		<label> 
+		<input type="radio"	name="gender" value=""> 여
+		</label>
+	</div>
+</td>
+</tr>
+<tr>
+	<th>이메일</th>
+	<th><input type="email" class="form-control" name="email" value=""></th>
+</tr>
+<tr>
+	<th></th>
+	<th>
+		<input type="submit" class="btn btn-primary" id ="allCheck" value="확인">
+		<input type="button" class="btn btn-secondary" value="다시입력" onClick="window.location='UpdateState.jsp'">
+		
+	</th>
+</tr>
 </table>
 </form>
 </div>
 </section>
+
 
 			<!-- Footer -->
 			<section id="footer">

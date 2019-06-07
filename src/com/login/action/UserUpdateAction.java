@@ -64,7 +64,7 @@ public class UserUpdateAction implements CommandAction{
     		if(conn != null) try{conn.close();} catch(SQLException ex){}
     		if(rs != null) try{rs.close();} catch(SQLException ex){}
     		}    	       	
-    	return "UpdateState.jsp";
+    	return "UserUpdateForm.jsp";
 	}
 	
 	

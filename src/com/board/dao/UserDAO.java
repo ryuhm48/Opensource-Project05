@@ -25,9 +25,9 @@ public class UserDAO {
     }
 //    4.
     private Connection conn;
-    private static String URL = "jdbc:mysql://localhost:3306/BBS?characterEncoding=UTF-8&serverTimezone=UTC";
-    private static String USERNAME="root";
-    private static String PASSWORD="1234";
+    private static String URL="jdbc:mysql://localhost:3306/BBS?characterEncoding=UTF-8&serverTimezone=UTC"; 
+	private static String USERNAME="root";
+    private static String PASSWORD="124";
 //    2.
     private UserDAO(){
         try {     //5.생성자에서 커넥션 얻기
@@ -44,13 +44,67 @@ public class UserDAO {
     }
 //    모델 패키지에 있는 Member꺼 가져와서 쓰기
 //    회원정보셋 데이터 추가하기
-
-    public UserBean getUserInfo(String userId) 
+    public void insertMember(UserBean user)
     {
-    	String sql = "select * from user where userId = ?";
+//        쿼리문 준비 처음엔 "" 상태로
+        String sql = "insert into user values (?,?,?,?,?)";
+        PreparedStatement pstmt = null;
+//        conn객체에 미완성 쿼리문 준비된걸 던져서 구문객체 획득
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, user.getUserId());
+            pstmt.setString(2, user.getPwd());
+            pstmt.setString(3, user.getGender());
+            pstmt.setString(4, user.getName());
+            pstmt.setString(5, user.getEmail());
+//        구문객체날리기
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null && !pstmt.isClosed())
+                    pstmt.close();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public void updateMember(UserBean user)
+    {
+        String sql = "update user set pwd=?, name=?, email=? where userId=?";
+        PreparedStatement pstmt = null;
+ 
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, user.getPwd());
+            pstmt.setString(2, user.getName());
+            pstmt.setString(3, user.getEmail());
+            pstmt.setString(4, user.getUserId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null && !pstmt.isClosed())
+                    pstmt.close();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+//    id에 해당하는 멤버 조회하기
+    public UserBean selectOne(String userId)
+    {
+        String sql = "select * from member where userId = ?";
 //        구문객체, 리턴할 객체, 결과셋 참조변수들 준비
         PreparedStatement pstmt = null;
-        UserBean member = null;//리턴할 객체참조변수
+        UserBean user = null;//리턴할 객체참조변수
         ResultSet rs = null;//결과셋 참조변수들 준비
         try {
 //            구문객체획득
@@ -59,14 +113,14 @@ public class UserDAO {
             pstmt.setString(1, userId);
 //            구문 날리고 result set 획득
             rs = pstmt.executeQuery();
-
+//            Resultset 탐색
             if( rs.next() )
             {
-                member = new UserBean();
-                member.setUserId( rs.getString("userId"));
-                member.setName( rs.getString("name"));
-                member.setGender(rs.getString("gender"));
-                member.setEmail(rs.getString("email"));
+                user = new UserBean();
+                user.setUserId( rs.getString("userId"));
+                user.setPwd(rs.getString("pwd"));
+                user.setName( rs.getString("name"));
+                user.setEmail(rs.getString("email"));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -84,57 +138,28 @@ public class UserDAO {
                 e.printStackTrace();
             }
         }
-        return member;
+        return user;
     }
-    	// end getUserInfo
-
-    public void updateMember(UserBean member)
-    {
-        String sql = "update member set pw=?, name=?,gender =?, email=? where id=?";
-        PreparedStatement pstmt = null;
- 
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, member.getPwd());
-            pstmt.setString(2, member.getName());
-            pstmt.setString(3, member.getGender());
-            pstmt.setString(4, member.getEmail());
-            pstmt.setString(5, member.getUserId());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } finally {
-            try {
-                if (pstmt != null && !pstmt.isClosed())
-                    pstmt.close();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-    }
-
+    
 //    member의 테이블정보 전체조회하기
     public List<UserBean> selectAll() {
         String sql = "select * from user";
         PreparedStatement pstmt = null;
 //        결과값 탐색
         ResultSet rs = null;
-        List<UserBean> memberList = new ArrayList<UserBean>();
+        List<UserBean> userList = new ArrayList<UserBean>();
         
         try {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
             while( rs.next() )
             {
-            	UserBean member = new UserBean();
-                member.setUserId( rs.getString("userId") );
-                member.setPwd(rs.getString("pwd"));
-                member.setName(rs.getString("name"));
-                member.setGender(rs.getString("gender"));
-                member.setEmail(rs.getString("email"));
-                memberList.add(member);
+                UserBean user = new UserBean();
+                user.setUserId( rs.getString("userId") );
+                user.setPwd(rs.getString("pwd"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                userList.add(user);
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -153,7 +178,8 @@ public class UserDAO {
                 e.printStackTrace();
             }
         }
-        return memberList;
+        return userList;
         
     }
 }
+

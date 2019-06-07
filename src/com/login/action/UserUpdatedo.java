@@ -23,15 +23,15 @@ public class UserUpdatedo implements CommandAction{
 			    	String gender = request.getParameter("gender");
 			    	String email = request.getParameter("email");
 			    	String userId = request.getParameter("userId");
-			    	
+			    	HttpSession session1 = request.getSession();
 			    	Class.forName("com.mysql.jdbc.Driver");
-			    	
+			    	String sql = "update user set pwd=?, name=?, email=? where userId=?";
 			    	//데이터 베이스 연결 관련 변수 선언
 			    	Connection conn = null;
 			    	PreparedStatement pstmt = null;    	
 			    	
 			    	try{ 		
-			    		 
+			    		
 			    		String jdbcDriver = "jdbc:mysql://localhost:3306/BBS?characterEncoding=UTF-8&serverTimezone=UTC"; 
 			    	
 						String dbUser = "root";
@@ -41,8 +41,7 @@ public class UserUpdatedo implements CommandAction{
 						conn = DriverManager.getConnection(jdbcDriver, dbUser, dbPass);
 			    		
 						//각 ?에 해당하는 변수들을 넣어준다.
-			      		pstmt = conn.prepareStatement(
-			    				"update user set pwd=?, name=?, gender=?, email=? where userId=?;");
+			      		pstmt = conn.prepareStatement(sql);			    				
 			    				pstmt.setString(1, pwd);
 			    				pstmt.setString(2, name);
 			    				pstmt.setString(3, gender);

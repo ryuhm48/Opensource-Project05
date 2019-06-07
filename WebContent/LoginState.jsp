@@ -33,6 +33,7 @@ userId = (String) session.getAttribute("userId");
 						<ul>
 							<li><a href="#">공지사항</a></li>
 							<li><a href="#">자유 게시판</a></li>
+							<li><a href="#">스터디 게시판</a></li>
 							<li><a href="#">자료실</a></li>
 						</ul>
 					</li>
@@ -62,7 +63,7 @@ userId = (String) session.getAttribute("userId");
 					<li class="nav navbar-nav navbar-right">
 				       <a class="icon fa-bars" href="#"><span>회원관리</span><a>
 				       	<ul class="dropdown-menu">
-				       		<li class="active" OnClick="window.location='UserUpdateForm.jsp'">회원정보 수정</a></li>
+				       		<li class="active" OnClick="location.href='UserUpdateForm.do'">회원정보 수정</a></li>
 				        </ul>
 				    </li>    
 					<div style="text-align:right">

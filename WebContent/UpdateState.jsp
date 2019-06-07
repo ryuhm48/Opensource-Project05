@@ -33,6 +33,7 @@ userId = (String) session.getAttribute("userId");
 						<ul>
 							<li><a href="#">공지사항</a></li>
 							<li><a href="#">자유 게시판</a></li>
+							<li><a href="#">스터디 게시판</a></li>
 							<li><a href="#">자료실</a></li>
 						</ul>
 					</li>
@@ -79,7 +80,7 @@ userId = (String) session.getAttribute("userId");
 		</section>
 
 <%
-    UserBean user = (UserBean) request.getAttribute("UserBean");
+    UserBean user = (UserBean) request.getAttribute("user");
 %>
 
 <section id="main">
@@ -107,27 +108,27 @@ userId = (String) session.getAttribute("userId");
 	<caption style="text-align:center">회원정보 수정 </caption>
 	<tr>
 		<th>PW</th>
-		<th><input type="text" class="form-control" name="pwd" id="inputPassword"></th>
+		<th><input type="text" class="form-control" name="pwd" value="<%=user.getUserId() %>"></th>
 	</tr>
 	<tr>
 		<th>이름</th>
-		<th><input type="text" class="form-control" name="name" id="inputName" ></th>
+		<th><input type="text" class="form-control" name="name" value="<%=user.getName() %>"></th>
 	</tr>
 	<tr>
 	<td colspan="2" style="text-align: center;">
 		<div class="btn-group" data-toggle="buttons">
 			<label> 
-			<input type="radio" name="gender" value="남" checked> 남
+			<input type="radio" name="gender" value="<%=user.getGender() %>" checked> 남
 			</label> 
 			<label> 
-			<input type="radio"	name="gender" value="여"> 여
+			<input type="radio"	name="gender" value="<%=user.getGender() %>"> 여
 			</label>
 		</div>
 	</td>
 </tr>
 	<tr>
 		<th>이메일</th>
-		<th><input type="email" class="form-control" name="email" id="inputEmail"></th>
+		<th><input type="email" class="form-control" name="email" value="<%=user.getEmail() %>"></th>
 	</tr>
 	<tr>
 		<th></th>

@@ -8,15 +8,12 @@
   	<servlet-name>ControllerAction</servlet-name>
   	<servlet-class>com.board.controller.ControllerAction</servlet-class>
   </servlet>
-  
+    
   <servlet-mapping>
-  	
   	<servlet-name>ControllerAction</servlet-name>
-  	
   	<url-pattern>*.do</url-pattern>
-  	
   </servlet-mapping>
-  
+
   <filter>
 	<filter-name>encodingFilter</filter-name>
 	<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
