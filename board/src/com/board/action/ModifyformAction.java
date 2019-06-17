@@ -74,6 +74,7 @@ public class ModifyformAction implements CommandAction {
 					article.setBoardnum(rs.getInt("boardnum"));
 					articleList.add(article);
 					request.setAttribute("articleList", articleList);
+					request.setAttribute("num", num);
 				} else {
 					study study = new study();
 					study.setNum(rs.getInt("num"));

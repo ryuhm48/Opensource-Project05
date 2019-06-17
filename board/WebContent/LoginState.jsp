@@ -33,6 +33,7 @@ userId = (String) session.getAttribute("userId");
 						<ul>
 							<li><a href="list.do?kind=${2}">공지사항</a></li>
 							<li><a href="list.do?kind=${1}">자유 게시판</a></li>
+							<li><a href="list.do?kind=${5}">스터디 게시판</a></li>
 							<li><a href="list.do?kind=${3}">자료실</a></li>
 						</ul>
 					</li>
@@ -92,19 +93,7 @@ userId = (String) session.getAttribute("userId");
 
 
 
-
-
-<!-- 애니매이션 담당 JQUERY -->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
-<!-- 부트스트랩 JS  -->
-<script src="Resources/assets/js/jquery.min.js"></script>
-<script src="Resources/assets/js/jquery.dropotron.min.js"></script>
-<script src="Resources/assets/js/browser.min.js"></script>
-<script src="Resources/assets/js/breakpoints.min.js"></script>
-<script src="Resources/assets/js/util.js"></script>
-<script src="Resources/assets/js/main.js"></script>
-
-
+	<%@ include file="plugin_js.jsp" %>
 
 
 </body>

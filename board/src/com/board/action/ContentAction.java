@@ -26,13 +26,14 @@ public class ContentAction implements CommandAction {
 
 		Class.forName("com.mysql.jdbc.Driver");
 		// ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ô·Â¹Þ¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-		int num = Integer.parseInt(request.getParameter("num"));
-		System.out.println(num);
+		int num=0;
 		int kind;
 		try {
+			num = Integer.parseInt(request.getParameter("num"));
 			kind = Integer.parseInt(request.getParameter("kind"));// 1= list 2= studylist
 		} catch (Exception e) {
 			kind = 1;
+			
 		}
 		Connection conn = null;
 		Statement stmt = null;
@@ -60,13 +61,12 @@ public class ContentAction implements CommandAction {
 			String dbPass = "";
 			String query = null;
 			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
-			if (kind == 1 || kind == 2 || kind == 3 | kind == 4) {
-				query = "select * from board where num = '" + num;
+			if (kind == 1 || kind == 2 || kind == 3 || kind == 4) {
+				query = "select * from board where num = " + num;
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(query);
 			} else {
 				query = "select * from studydb where num = " + num;
-
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(query);
 				// query3 = "select * MID(SUBSTRING(member,LOCATE(',',member)+1)"
@@ -92,10 +92,9 @@ public class ContentAction implements CommandAction {
 					article.setEmail(rs.getString("email"));
 					article.setBoardnum(rs.getInt("boardnum"));
 					articleList.add(article);
-					request.setAttribute("articleList", articleList);
 					String query2 = "UPDATE board SET score='" + score + "' WHERE num='" + num + "';";
 					stmt.executeUpdate(query2);
-
+					request.setAttribute("articleList", articleList);
 				} else if (kind == 2) {
 					board article = new board();
 					article.setNum(rs.getInt("num"));
@@ -154,7 +153,8 @@ public class ContentAction implements CommandAction {
 					request.setAttribute("articlenum", new Integer(num));
 				}
 			}
-
+			
+			
 		} catch (
 
 		SQLException ex) {
@@ -178,13 +178,13 @@ public class ContentAction implements CommandAction {
 				}
 		}
 		if (kind == 1) {// kindº°·Î ¼öÁ¤
-			return "replyadd.do";
+			return "content.jsp";
 		} else if (kind == 2) {
-			return "replyadd.do";
+			return "content.jsp";
 		} else if (kind == 3) {
-			return "replyadd.do";
+			return"content.jsp";
 		} else if (kind == 4) {
-			return "replyadd.do";
+			return "content.jsp";
 		} else {
 			return "comparemember.do";
 		}

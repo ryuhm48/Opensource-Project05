@@ -58,14 +58,14 @@ public class ListAction implements CommandAction {
 					query = "select * from board where boardnum='" + kind + "' order by num";
 
 				} else if (opt.equals("0")) {// 수정
-					query = "select * from board where subject like '%" + condition + "%' order by num";
+					query = "select * from board where boardnum='" + kind + "'and subject like '%" + condition + "%' order by num";
 				} else if (opt.equals("1")) {// 수정
-					query = "select * from board where content like '%" + condition + "%' order by num";
+					query = "select * from board where boardnum='" + kind + "'and  content like '%" + condition + "%' order by num";
 				} else if (opt.equals("2")) {// 수정
-					query = "select * from board where id like '%" + condition + "%' order by num";
+					query = "select * from board where boardnum='" + kind + "'and id like '%" + condition + "%' order by num";
 				}
 			}
-
+			
 			else {
 				if (opt == null) {
 					query = "select * from studydb order by num";
@@ -108,6 +108,7 @@ public class ListAction implements CommandAction {
 			}
 			request.setAttribute("articleList", articleList);
 			request.setAttribute("studyList", studyList);
+			session.setAttribute("kind", kind);
 		} catch (SQLException ex) {
 
 		} finally {
@@ -131,11 +132,11 @@ public class ListAction implements CommandAction {
 		if (kind == 1)
 			return "list.jsp";
 		else if (kind == 2) {
-			return "list.jsp";
+			return "listNotice.jsp";
 		} else if (kind == 3) {
-			return "list.jsp";
+			return "listFile.jsp";
 		} else if (kind == 4) {
-			return "list.jsp";
+			return "listQna.jsp";
 		} else
 			return "personalstudylist.jsp";
 	}

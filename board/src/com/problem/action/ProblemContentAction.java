@@ -105,7 +105,7 @@ public class ProblemContentAction implements CommandAction {
 				}
 		}
 
-		return "Show.jsp";
+		return "/Problems/Show.jsp";
 
 	}
 }

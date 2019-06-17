@@ -32,6 +32,16 @@ public class board {
 	
 	private int boardnum;
 	
+	private String filename;
+	
+	public String getFilename() {
+		return filename;
+	}
+	
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	
 	public String getOpt() {
 		return opt;
 	}

@@ -24,50 +24,52 @@ public class ModifyAction implements CommandAction {
 		String jdbc_driver = "com.mysql.jdbc.Driver";
 		String jdbc_url = "jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC";
 		int kind;
+		int num=0;
 		try {
 			kind = Integer.parseInt(request.getParameter("kind"));// 1= list 2= studylist
 		} catch (Exception e) {
-			kind = 1;
+			kind = 3;
 		}
+		 num = Integer.parseInt(request.getParameter("num"));
+		
 		// String url = "jdbc:mysql://127.0.0.1/jspdb";
 		String dbUser = "root";
 		String dbPass = "";
 		Connection conn = null;
 		Statement stmt = null;
+		
 		try {
 			Class.forName(jdbc_driver);
 			HttpSession session = request.getSession();
-
 			if (session.getAttribute("id") == null) {
 				return "loginerror.jsp";
 			}
-			request.setCharacterEncoding("euc-kr");
-
 			conn = DriverManager.getConnection(jdbc_url, dbUser, dbPass);
-
+			
 			stmt = conn.createStatement();
 			String sql = null;
-			System.out.println(kind);
+			
 			if (kind == 1 || kind == 2 || kind == 4) {
-				String num = request.getParameter("num");
+				 num = Integer.parseInt(request.getParameter("num"));
 				String subject = request.getParameter("subject");
 				String content = request.getParameter("content");
-				sql = "UPDATE board SET subject='" + subject + "' ,content='" + content + "' WHERE num='" + num+"';";
+				
+				sql = "UPDATE board SET subject='" + subject + "' ,content='" + content + "' WHERE num='" + num + "';";
 
 			} else if (kind == 3) {
-				String num = request.getParameter("num");
+				 num = Integer.parseInt(request.getParameter("num"));
 				String subject = request.getParameter("subject");
 				String content = request.getParameter("content");
-				sql = "UPDATE board SET subject='" + subject + "' ,content='" + content + "' WHERE num='" + num+"';";
-				//파일추가
+				sql = "UPDATE board SET subject='" + subject + "' ,content='" + content + "' WHERE num='" + num + "';";
+				// 파일추가
 			} else {
-				String num = request.getParameter("num");
+				 num = Integer.parseInt(request.getParameter("num"));
 				String inform = request.getParameter("inform");
 				String name = request.getParameter("name");
-				sql = "UPDATE studydb SET name='" + name + "' ,inform='" + inform + "' WHERE num='" + num+"';";
+				sql = "UPDATE studydb SET name='" + name + "' ,inform='" + inform + "' WHERE num='" + num + "';";
 			}
 			stmt.executeUpdate(sql);
-
+			
 			stmt.close();
 			conn.close();
 
@@ -85,17 +87,21 @@ public class ModifyAction implements CommandAction {
 				} catch (SQLException ex) {
 				}
 		}
-
-		if (kind == 1)
+		if (kind == 1) {
+			System.out.println(2);
 			return "content.do?&kind=${1}";
-		else if(kind==2)
+			
+		}
+		else if (kind == 2)
 			return "content.do?&kind=${2}";
-		else if(kind==3)
+		else if (kind == 3)
 			return "content.do?&kind=${3}";
-		else if(kind==4)
+		else if (kind == 4)
 			return "content.do?&kind=${4}";
-		else
+		else if (kind == 5)
 			return "content.do?&kind=${5}";
+		else
+			return "content.do?&kind=${6}";
 	}
 
 }

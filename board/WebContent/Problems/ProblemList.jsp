@@ -71,7 +71,7 @@ pageEncoding="UTF-8"%>
 			f.parentNode.submit();
 		}
 	</script>
-	<form action = "writeui.do" id = "write" method = "post">
+	<form action = "problemwriteform.do" id = "write" method = "get">
 		<input type = "text" name = "studyNum" value = "<%= studyNum %>" style = "display : none">
 	</form>
 	<a onclick = "document.getElementById('write').submit();">글쓰기</a>

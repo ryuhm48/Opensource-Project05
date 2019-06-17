@@ -98,7 +98,7 @@ public class ProblemListAction implements CommandAction {
 				} catch (SQLException ex) {
 				}
 		}
-		return "ProblemList.jsp";
+		return "/Problems/ProblemList.jsp";
 	}
 
 }

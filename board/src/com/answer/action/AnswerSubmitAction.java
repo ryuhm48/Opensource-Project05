@@ -78,7 +78,7 @@ public class AnswerSubmitAction implements CommandAction {
 				}
 		}
 	
-			return "Answer.jsp";
+			return "/Problems/Answer.jsp";
 	}
 
 }

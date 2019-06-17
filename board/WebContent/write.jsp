@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <html>
 <head>
@@ -8,8 +8,8 @@
 </head>
 <body>
 <script>
-   self.window.alert("회원가입을 축하합니다.");
-   location.href="LoginState.jsp"; 
+   self.window.alert("입력한 글을 저장하였습니다.");
+   location.href="list.do?kind=${1}"; 
 
 </script>
 </body>

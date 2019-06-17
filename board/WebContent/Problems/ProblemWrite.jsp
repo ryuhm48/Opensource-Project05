@@ -18,7 +18,7 @@ int x = (int)request.getAttribute("studyNum");
 		<input type = "text" name = "problemNum2" style = "display : none;" value = "1"><br/>
 		문제 제목<input type = "text" name = "problemName"><br/>
 		<input type = "text" name = "problemLanguage" style = "display : none;" value = "C"><br/>
-		<input type = "text" name = "writerName" style = "display : none;" value = "김경태"><br/>
+		<input type = "text" name = "writerName" style = "display : none;" value = "${id}"><br/>
 		문제 내용<br/><textarea name = "problemContent" rows="15" cols="80"></textarea><br/><br/>
 		예제입력(필수 아님)<br/><textarea name = "problemInputEx" rows="15" cols="30"></textarea><br/><br/>
 		예제출력(필수 아님)<br/><textarea name = "problemOutputEx" rows="15" cols="30"></textarea><br/><br/>

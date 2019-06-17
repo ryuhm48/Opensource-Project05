@@ -20,7 +20,43 @@
 		<url-pattern>*.do</url-pattern>
 
 	</servlet-mapping>
-
+	<jsp-config>
+	  <jsp-property-group>
+	  <url-pattern>/Problem/Answer.jsp</url-pattern>
+	  <url-pattern>/Problem/AnswerList.jsp</url-pattern>
+	  <url-pattern>/Problem/ProblemList.jsp</url-pattern>
+	  <url-pattern>/Problem/ProblemWrite.jsp</url-pattern>
+	  <url-pattern>/Problem/Show.jsp</url-pattern>
+	  <url-pattern>/index.jsp</url-pattern>
+	  <url-pattern>/UserJoin.jsp</url-pattern>
+	  <url-pattern>/LoginForm.jsp</url-pattern>
+	  <url-pattern>/LoginState.jsp</url-pattern>
+	  <url-pattern>/content.jsp</url-pattern>
+	  <url-pattern>/delete.jsp</url-pattern>
+	  <url-pattern>/list.jsp</url-pattern>
+	  <url-pattern>/listFile.jsp</url-pattern>
+	  <url-pattern>/listNotice.jsp</url-pattern>
+	  <url-pattern>/listQna.jsp</url-pattern>
+	  <url-pattern>/modify.jsp</url-pattern>
+	  <url-pattern>/modifyform.jsp</url-pattern>
+	  <url-pattern>/write.jsp</url-pattern>
+	  <url-pattern>/writeform.jsp</url-pattern>
+	  <url-pattern>/personalstudycontent_admin.jsp</url-pattern>
+	  <url-pattern>/personalstudycontent_member.jsp</url-pattern>
+	  <url-pattern>/personalstudycontent.jsp</url-pattern>
+	  <url-pattern>/personalstudydelete.jsp</url-pattern>
+	  <url-pattern>/personalstudyjoinlist.jsp</url-pattern>
+	  <url-pattern>/personalstudylist.jsp</url-pattern>
+	  <url-pattern>/personalstudymemberlist.jsp</url-pattern>
+	  <url-pattern>/personalstudymodify.jsp</url-pattern>
+	  <url-pattern>/personalstudymodifyform.jsp</url-pattern>
+	  <url-pattern>/personalstudysignup.jsp</url-pattern>
+	  <url-pattern>/personalstudywrite.jsp</url-pattern>
+	  <url-pattern>/personalstudywriteform.jsp</url-pattern>
+	  <include-prelude>/module/header.jsp</include-prelude>
+      <include-coda>/module/footer.jsp</include-coda>
+      </jsp-property-group>
+    </jsp-config>
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>

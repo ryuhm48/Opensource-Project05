@@ -54,7 +54,7 @@ public class LoginAction implements CommandAction{
 			}			
 			if(isLogin){				
 				session.setAttribute("id", id);
-				session.setAttribute("kind", 1);
+				
 			}else if(!isLogin && id != null){
 				return "loginerror2.jsp";
 			}
@@ -65,7 +65,7 @@ public class LoginAction implements CommandAction{
     		if(conn != null) try{conn.close();} catch(SQLException ex){}
     		if(rs != null) try{rs.close();} catch(SQLException ex){}
     		}    	       	
-    	return "list.do";
+    	return "index.jsp";
 	}
 	
 }

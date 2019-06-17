@@ -1945,7 +1945,7 @@ input[type='radio']:checked {
 		position: absolute;
 		top: 2em;
 		left: 0;
-		width: 100%;
+		width: 95%;
 		cursor: default;
 	}
 

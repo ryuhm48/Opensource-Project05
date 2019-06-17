@@ -95,7 +95,7 @@ public class ProblemWriteAction implements CommandAction {
 				}
 		}
 
-		return "list.do";
+		return "problemlist.do";
 
 	}
 

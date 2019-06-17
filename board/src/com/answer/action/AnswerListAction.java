@@ -151,7 +151,7 @@ public class AnswerListAction implements CommandAction {
 				}
 		}
 	
-			return "AnswerList.jsp";
+			return "/Problems/AnswerList.jsp";
 	}
 	
 

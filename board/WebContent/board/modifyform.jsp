@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=euc-kr" pageEncoding="euc-kr"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
     <script> 
 		function writeCheck()
 		  {
@@ -7,14 +9,14 @@
 		   
 		  if( !form.subject.value )
 		   {
-		    alert( "Á¦¸ñÀ» Àû¾îÁÖ¼¼¿ä" );
+		    alert( "ì œëª©ì„ ì ì–´ì£¼ì„¸ìš”" );
 		    form.subject.focus();
 		    return;
 		   }
 		 
 		  if( !form.content.value )
 		   {
-		    alert( "³»¿ëÀ» Àû¾îÁÖ¼¼¿ä" );
+		    alert( "ë‚´ìš©ì„ ì ì–´ì£¼ì„¸ìš”" );
 		    form.content.focus();
 		    return;
 		   }  
@@ -28,47 +30,59 @@
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<title>BOARD Å×ÀÌºí ·¹ÄÚµå »ğÀÔ</title>
+  	<link rel="stylesheet" type="text/css" href="css/board.css">
+<script type="text/javascript" src="script/board.js"></script>
+	<title>BOARD í…Œì´ë¸” ë ˆì½”ë“œ ì‚½ì…</title>
+	
+	<style>
+.section {
+	width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
+	margin: 70px auto;
+}
+
+.header {
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+.footer {
+	text-align: center;
+	margin-bottom: -100px;
+}
+
+.article {
+	float: right;
+	margin-bottom: 20px;
+}
+</style>
 </head>
 <body>
-	<div style="text-align:right">
-		»ç¿ëÀÚID : ${id} <input type=button class="btn btn-info" value="·Î±×¾Æ¿ô" OnClick="window.location='logout.do'">
-	</div>
-	<form action ="/board/modify.do" method="get">
-		<c:forEach items="${articleList}" var="article">
-			<input type="hidden" name="num" value="${article.num}">
-			<input type="hidden" name="kind" value="${kind}">
-			<table class="table table-striped table-bordered table-hover" style="text-align:center">
-				<caption style="text-align:center">°Ô½ÃÆÇ ¼öÁ¤</caption>		
-				<tr>
-					<td>Á¦¸ñ</td>
-					<td style="text-align:left"><input type="text" name="subject" value="${article.subject}"></td>
-				</tr>
-				<tr>	
-					<td>ÀÛ¼ºÀÚ</td>
-					<td style="text-align:left">${article.id}</td>
-				</tr>
-				<tr>	
-					<td>ÀÛ¼ºÀÏÀÚ</td>
-					<td style="text-align:left">${article.boarddate}</td>
-				</tr>
-				<tr>	
-					<td>email</td>
-					<td style="text-align:left">${article.email}</td>
-				</tr>
-				<tr>	
-					<td>³»¿ë</td>
-					<td style="text-align:left"><textarea name="content" rows="10" placeholder="³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä" form="inform">${article.content}</textarea></td>
-				</tr>	
-				<tr>
-					<td></td>
-					<td style="text-align:right">
-						<input type=submit class="btn btn-warning" value="¼öÁ¤" Onclick="javascript:writeCheck();">
-						<input type=button class="btn btn-secondary" value="Ãë¼Ò" OnClick="window.location='content.do?num=${article.num}&kind=${1}'">
-					</td>
-				</tr>	
-			</table>
-		</c:forEach>
-	</form>
+
+<h1>ê²Œì‹œê¸€ ìˆ˜ì •</h1>
+<form action="/board/modify.do" method="get">
+	<input type="hidden" name="command" value="free_board_update"/>
+	<input type="hidden" name="num" value="${article.num }"/>
+	<input type="hidden" name="kind" value="${kind}">
+	<table>
+		<tr>
+			<th>ì œëª©</th>
+			<td><input type="text" name="title" value="${article.subject }"></td>
+		</tr>
+		<tr>
+			<th>ë‚´ìš©</th>
+			<td><textarea cols="70" rows="15" name="content">${article.content }</textarea></td>
+		</tr>
+	</table>
+	<br>
+	<br>					
+	<input type="submit" value="ìˆ˜ì •" onclick="javascript:writeCheck();"/>
+	<input type="reset" value="ë‹¤ì‹œì‘ì„±" />
+	<input type="button" value="ëª©ë¡ë³´ê¸°" onclick="window.location='content.do?num=${article.num}&kind=${1}'"/>
+</form>
+</div>
+	
+	
 </body>
 </html>
